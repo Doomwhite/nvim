@@ -32,6 +32,9 @@ keymap("n", "L", "$", opts)
 keymap("n", "<leader>ws", ":split<CR>", opts)
 keymap("n", "<leader>wv", ":vsplit<CR>", opts)
 
+-- ToggleTerm
+keymap("n", "<leader>t", ":ToggleTerm<CR>", term_opts)
+
 -- Better window navigation
 keymap("n", "<leader>wh", "<C-w>h", opts)
 keymap("n", "<leader>wj", "<C-w>j", opts)
@@ -92,6 +95,8 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap("t", "<Esc>", "<C-\\><C-n>", term_opts)
+keymap("t", "<leader>t", "<C-\\><C-n>:ToggleTerm<CR>", term_opts)
 
 
 -- vim.keymap.set("n", "<leader>.e", vim.cmd.Ex)
