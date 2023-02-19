@@ -55,8 +55,22 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<leader>wn", ":bnext<CR>", opts)
-keymap("n", "<leader>wp", ":bprevious<CR>", opts)
+keymap("n", "<leader>w;", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "<leader>w,", ":BufferLineCyclePrev<CR>", opts)
+keymap("n", "<leader>wp", ":BufferLineTogglePin<CR>", opts)
+keymap("n", "<leader>wcl", ":BufferLineCloseRight<CR>", opts)
+keymap("n", "<leader>wch", ":BufferLineCloseLeft<CR>", opts)
+keymap("n", "<leader>ww", ":BufferLinePick<CR>", opts)
+keymap("n", "<leader>w=", ":BufferLineSortByTabs<CR>", opts)
+keymap("n", "<leader>w1", ":BufferLineGoToBuffer 1<CR>", opts)
+keymap("n", "<leader>w2", ":BufferLineGoToBuffer 2<CR>", opts)
+keymap("n", "<leader>w3", ":BufferLineGoToBuffer 3<CR>", opts)
+keymap("n", "<leader>w4", ":BufferLineGoToBuffer 4<CR>", opts)
+keymap("n", "<leader>w5", ":BufferLineGoToBuffer 5<CR>", opts)
+keymap("n", "<leader>w6", ":BufferLineGoToBuffer 6<CR>", opts)
+keymap("n", "<leader>w7", ":BufferLineGoToBuffer 7<CR>", opts)
+keymap("n", "<leader>w8", ":BufferLineGoToBuffer 9<CR>", opts)
+keymap("n", "<leader>w9", ":BufferLineGoToBuffer 9<CR>", opts)
 
 -- Insert --
 -- Press jk fast to enter
