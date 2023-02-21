@@ -19,18 +19,14 @@ wk.register({
             name = "Leader second layer",
             ["p"] = {
                 name = "Packer",
-                ["s"] = { ":PackerSync<CR>", "Sync" }
-            }
+                ["s"] = { ":PackerSync<CR>", "Sync" },
+            },
+            g = { vim.cmd.Git, "Git fugitive" },
+            e = { ":NvimTreeToggle<CR>", "Toggle tree" },
         },
         q = { ":q<CR>", "Quit" },
         ["Q"] = { ":q!<CR>", "Force quit" },
         t = { ":ToggleTerm<CR>", "Toggle terminal" },
-        ["."] = {
-            name = "Explorer",
-            e = { ":NvimTreeFocus<CR>", "Focus tree" },
-            E = { ":NvimTreeToggle<CR>", "Toggle tree" },
-            g = { vim.cmd.Git, "Git fugitive" },
-        },
         f = {
             name = "Find",
             f = { ":Telescope find_files<CR>", "Find files" },
@@ -41,6 +37,7 @@ wk.register({
             a = { ":wa<CR>", "Save all" },
             s = { ":split<CR>", "Split window horizontally" },
             v = { ":vsplit<CR>", "Split window vertically" },
+            e = { ":NvimTreeFocus<CR>", "Focus tree" },
             h = { "<C-w>h", "Move to window on the left" },
             j = { "<C-w>j", "Move to window below" },
             k = { "<C-w>k", "Move to window above" },
@@ -48,6 +45,7 @@ wk.register({
             [";"] = { ":BufferLineCycleNext<CR>", "Next" },
             [","] = { ":BufferLineCyclePrev<CR>", "Previous" },
             p = { ":BufferLineTogglePin<CR>", "Pin" },
+            c = { ":BufferLineClose<CR>", "Close right" },
             cl = { ":BufferLineCloseRight<CR>", "Close right" },
             ch = { ":BufferLineCloseLeft<CR>", "Close left" },
             w = { ":BufferLinePick<CR>", "Pick" },
