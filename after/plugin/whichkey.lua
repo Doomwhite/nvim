@@ -26,7 +26,7 @@ wk.register({
         },
         q = { ":q<CR>", "Quit" },
         ["Q"] = { ":q!<CR>", "Force quit" },
-        t = { ":ToggleTerm<CR>", "Toggle terminal" },
+        t = { ":ToggleTerm<CR>i", "Toggle terminal" },
         f = {
             name = "Find",
             f = { ":Telescope find_files<CR>", "Find files" },
