@@ -23,6 +23,14 @@ wk.register({
             },
             g = { vim.cmd.Git, "Git fugitive" },
             e = { ":NvimTreeToggle<CR>", "Toggle tree" },
+            l = {
+                name = "Programming Languages",
+                c = {
+                    name = "C++",
+					s = {":lua SetCompileVars()<CR>", "Sets the compiler variables"},
+					t = {":lua RunCompiler()<CR>", "Executes the compiler"}
+                }
+            }
         },
         q = { ":q<CR>", "Quit" },
         ["Q"] = { ":q!<CR>", "Force quit" },
