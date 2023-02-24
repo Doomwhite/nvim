@@ -1,4 +1,4 @@
-require("doomwhite.remap")
-require("doomwhite.packer")
-require("doomwhite.set")
 require("doomwhite.autocmds")
+require("doomwhite.packer")
+require("doomwhite.remap")
+require("doomwhite.set")
