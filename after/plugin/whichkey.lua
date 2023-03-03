@@ -55,6 +55,7 @@ wk.register({
 			[";"] = { ":BufferLineCycleNext<CR>", "Next" },
 			["="] = { ":BufferLineSortByTabs<CR>", "Sort by tabs" },
 			a = { ":wa<CR>", "Save all" },
+			q = { ":wq<CR>", "Save and Quit" },
 			c = { ":BufferLineClose<CR>", "Close right" },
 			ch = { ":BufferLineCloseLeft<CR>", "Close left" },
 			cl = { ":BufferLineCloseRight<CR>", "Close right" },
@@ -122,6 +123,12 @@ wk.register({
 	["<C-Up>"] = { ":resize +2<CR>", "Increase window height" },
 	["H"] = { "^", "Move to beginning of line" },
 	["L"] = { "$", "Move to end of line" },
+	[";"] = {
+		[";"] = { ";", ";" }
+	},
+	[","] = {
+		[","] = { ",", "," }
+	}
 }, n_opts)
 
 local i_opts = {
