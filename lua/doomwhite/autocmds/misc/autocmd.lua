@@ -14,3 +14,7 @@
 --     end
 --   end
 -- })
+function cwd()
+  local cwd = vim.fn.getcwd()
+  print("Current working directory: " .. cwd)
+end

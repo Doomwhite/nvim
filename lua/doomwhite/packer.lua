@@ -49,6 +49,7 @@ return require('packer').startup(function(use)
 	use('nvim-treesitter/playground')
 
 	use('tpope/vim-fugitive')
+	use('tpope/vim-repeat')
 
 	use {
 		'tummetott/unimpaired.nvim',
@@ -57,28 +58,31 @@ return require('packer').startup(function(use)
 		end
 	}
 
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v1.x',
-		requires = {
-			-- LSP Support
-			{ 'neovim/nvim-lspconfig' }, -- Required
-			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
-			{ 'williamboman/mason.nvim' }, -- Optional
 
-			-- Autocompletion
-			{ 'hrsh7th/cmp-buffer' }, -- Optional
-			{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-			{ 'hrsh7th/cmp-nvim-lua' }, -- Optional
-			{ 'hrsh7th/cmp-path' }, -- Optional
-			{ 'hrsh7th/nvim-cmp' }, -- Required
-			{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
+	use { 'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile' }
 
-			-- Snippets
-			{ 'L3MON4D3/LuaSnip' }, -- Required
-			{ 'rafamadriz/friendly-snippets' }, -- Optional
-		}
-	}
+	-- use {
+	-- 	'VonHeikemen/lsp-zero.nvim',
+	-- 	branch = 'v1.x',
+	-- 	requires = {
+	-- 		-- LSP Support
+	-- 		{ 'neovim/nvim-lspconfig' }, -- Required
+	-- 		{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
+	-- 		{ 'williamboman/mason.nvim' }, -- Optional
+	--
+	-- 		-- Autocompletion
+	-- 		{ 'hrsh7th/cmp-buffer' }, -- Optional
+	-- 		{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
+	-- 		{ 'hrsh7th/cmp-nvim-lua' }, -- Optional
+	-- 		{ 'hrsh7th/cmp-path' }, -- Optional
+	-- 		{ 'hrsh7th/nvim-cmp' }, -- Required
+	-- 		{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
+	--
+	-- 		-- Snippets
+	-- 		{ 'L3MON4D3/LuaSnip' }, -- Required
+	-- 		{ 'rafamadriz/friendly-snippets' }, -- Optional
+	-- 	}
+	-- }
 
 	use { "akinsho/toggleterm.nvim", tag = '*', config = function()
 		require("toggleterm").setup()
