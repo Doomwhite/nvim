@@ -3,25 +3,30 @@ local ui = require("harpoon.ui")
 local wk = require("which-key")
 
 local function t(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+	return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+function RepeteableBinding(action)
+	local actionReplaced = vim.api.nvim_replace_termcodes(action, true, false, true)
+	vim.nvim_feedkeys(action, 'n', true)
+	vim.fn['repeat#set'](action, vim.v.count) -- the vim-repeat magic
 end
 
 function RepeteableCommand(action)
-  local actionReplaced = vim.api.nvim_replace_termcodes(action, true, true, true)
-  vim.cmd(RemoveTermCodes(action))
-  vim.fn['repeat#set'](actionReplaced, vim.v.count)  -- the vim-repeat magic
+	local actionReplaced = vim.api.nvim_replace_termcodes(action, true, true, true)
+	vim.cmd(RemoveTermCodes(action))
+	vim.fn['repeat#set'](actionReplaced, vim.v.count) -- the vim-repeat magic
 end
 
 function RemoveTermCodes(str)
-  local tempStr = str
-  tempStr = string.gsub(tempStr, "<CR>", "")
-  tempStr = string.gsub(tempStr, "<Cr>", "")
-  tempStr = string.gsub(tempStr, "<Esc>", "")
-  tempStr = string.gsub(tempStr, "<Tab>", "")
-  return tempStr
+	local tempStr = str
+	tempStr = string.gsub(tempStr, "<CR>", "")
+	tempStr = string.gsub(tempStr, "<Cr>", "")
+	tempStr = string.gsub(tempStr, "<Esc>", "")
+	tempStr = string.gsub(tempStr, "<Tab>", "")
+	tempStr = string.gsub(tempStr, "<C%-[a-zA-Z]>", "")
+	return tempStr
 end
-
-
 
 wk.setup()
 
@@ -35,7 +40,7 @@ local n_opts = {
 }
 wk.register({
 		["<leader>"] = {
-		  name = "Leader layer",
+				name = "Leader layer",
 				["<leader>"] = {
 						name = "Leader second layer",
 						["p"] = {
@@ -54,9 +59,9 @@ wk.register({
 						}
 				},
 				["."] = {
-				  name = "Current directory",
-				  d = { ":echo expand('%p:h:')<CR>", "Prints the current buffer directory" },
-				  s = { ":source<CR>", "Sources the current buffer" },
+						name = "Current directory",
+						d = { ":echo expand('%p:h:')<CR>", "Prints the current buffer directory" },
+						s = { ":source<CR>", "Sources the current buffer" },
 				},
 				q = { ":q<CR>", "Quit" },
 				["Q"] = { ":q!<CR>", "Force quit" },
@@ -69,31 +74,31 @@ wk.register({
 				w = {
 						name = "Window/Buffer",
 						[","] = { function() RepeteableCommand(":BufferLineCyclePrev<CR>") end, "Previous" },
-						["1"] = { ":BufferLineGoToBuffer 1<CR>", "Go to buffer 1" },
-						["2"] = { ":BufferLineGoToBuffer 2<CR>", "Go to buffer 2" },
-						["3"] = { ":BufferLineGoToBuffer 3<CR>", "Go to buffer 3" },
-						["4"] = { ":BufferLineGoToBuffer 4<CR>", "Go to buffer 4" },
-						["5"] = { ":BufferLineGoToBuffer 5<CR>", "Go to buffer 5" },
-						["6"] = { ":BufferLineGoToBuffer 6<CR>", "Go to buffer 6" },
-						["7"] = { ":BufferLineGoToBuffer 7<CR>", "Go to buffer 7" },
-						["8"] = { ":BufferLineGoToBuffer 8<CR>", "Go to buffer 8" },
-						["9"] = { ":BufferLineGoToBuffer 9<CR>", "Go to buffer 9" },
-						[";"] = { ":BufferLineCycleNext<CR>", "Next" },
-						["="] = { ":BufferLineSortByTabs<CR>", "Sort by tabs" },
+						["1"] = { function() RepeteableCommand(":BufferLineGoToBuffer 1<CR>") end, "Go to buffer 1" },
+						["2"] = { function() RepeteableCommand(":BufferLineGoToBuffer 2<CR>") end, "Go to buffer 2" },
+						["3"] = { function() RepeteableCommand(":BufferLineGoToBuffer 3<CR>") end, "Go to buffer 3" },
+						["4"] = { function() RepeteableCommand(":BufferLineGoToBuffer 4<CR>") end, "Go to buffer 4" },
+						["5"] = { function() RepeteableCommand(":BufferLineGoToBuffer 5<CR>") end, "Go to buffer 5" },
+						["6"] = { function() RepeteableCommand(":BufferLineGoToBuffer 6<CR>") end, "Go to buffer 6" },
+						["7"] = { function() RepeteableCommand(":BufferLineGoToBuffer 7<CR>") end, "Go to buffer 7" },
+						["8"] = { function() RepeteableCommand(":BufferLineGoToBuffer 8<CR>") end, "Go to buffer 8" },
+						["9"] = { function() RepeteableCommand(":BufferLineGoToBuffer 9<CR>") end, "Go to buffer 9" },
+						[";"] = { function() RepeteableCommand(":BufferLineCycleNext<CR>") end, "Next" },
+						["="] = { function() RepeteableCommand(":BufferLineSortByTabs<CR>") end, "Sort by tabs" },
 						a = { ":wa<CR>", "Save all" },
 						q = { ":wq<CR>", "Save and Quit" },
-						c = { ":BufferLineClose<CR>", "Close right" },
-						ch = { ":BufferLineCloseLeft<CR>", "Close left" },
-						cl = { ":BufferLineCloseRight<CR>", "Close right" },
+						-- c = { function() RepeteableCommand(":BufferLineClose<CR>") end, "Close" },
+						ch = { function() RepeteableCommand(":BufferLineCloseLeft<CR>") end, "Close left" },
+						cl = { function() RepeteableCommand(":BufferLineCloseRight<CR>") end, "Close right" },
 						e = { ":NvimTreeFocus<CR>", "Focus tree" },
-						h = { "<C-w>h", "Move to window on the left" },
+						h = { function() RepeteableBinding("<C-w>h") end, "Move to window on the left" },
 						j = { "<C-w>j", "Move to window below" },
 						k = { "<C-w>k", "Move to window above" },
 						l = { "<C-w>l", "Move to window on the right" },
-						p = { ":BufferLineTogglePin<CR>", "Pin" },
-						s = { ":split<CR>", "Split window horizontally" },
-						v = { ":vsplit<CR>", "Split window vertically" },
-						w = { ":BufferLinePick<CR>", "Pick" },
+						p = { function() RepeteableCommand(":BufferLineTogglePin<CR>") end, "Pin" },
+						s = { function() RepeteableCommand(":split<CR>") end, "Split window horizontally" },
+						v = { function() RepeteableCommand(":vsplit<CR>") end, "Split window vertically" },
+						w = { function() RepeteableCommand(":BufferLinePick<CR>") end, "Pick" },
 				},
 				h = {
 						name = "Harpoon",
@@ -111,7 +116,6 @@ wk.register({
 						l = { function() RepeteableCommand(":TroubleToggle<CR>") end, "Toggle quickfix list" }
 				},
 		},
-
 		["<C-Up>"] = { function() RepeteableCommand(":resize -2<CR>") end, "Increase window height" },
 		["<C-Down>"] = { function() RepeteableCommand(":resize +2<CR>") end, "Decrease window height" },
 		["<C-Right>"] = { function() RepeteableCommand(":vertical resize -2<CR>") end, "Decrease window width" },
@@ -129,8 +133,8 @@ wk.register({
 		z = {
 				["Q"] = { ":q!<CR>", "Force quit" },
 				["Z"] = { ":wq<CR>", "Save and Quit" },
-				e = { ":NvimTreeToggle<CR>", "Toggle tree" },
-				q = { ":q!<CR>", "Quit" },
+				e = { function() RepeteableCommand(":NvimTreeToggle<CR>") end, "Toggle tree" },
+				q = { function() RepeteableCommand(":q!<CR>") end, "Quit" },
 		},
 		["Z"] = {
 				["Q"] = { function() RepeteableCommand(":q!<CR>") end, "Force quit" },
@@ -138,7 +142,7 @@ wk.register({
 				e = { function() RepeteableCommand(":NvimTreeToggle<CR>") end, "Toggle tree" },
 				q = { ":q!<CR>", "Quit" },
 		},
-		["="] = {":CocCommand prettier.forceFormatDocument<CR>", "Format document"}
+		-- ["="] = { ":CocCommand prettier.forceFormatDocument<CR>", "Format document" }
 }, n_opts)
 
 local i_opts = {
@@ -206,8 +210,4 @@ wk.register({
 
 -- local function t(str)
 --     return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end 
-
-
-
-
+-- end
