@@ -7,9 +7,9 @@ local function t(str)
 end
 
 function RepeteableBinding(action)
-	local actionReplaced = vim.api.nvim_replace_termcodes(action, true, false, true)
-	vim.nvim_feedkeys(action, 'n', true)
-	vim.fn['repeat#set'](action, vim.v.count) -- the vim-repeat magic
+	local actionReplaced = vim.api.nvim_replace_termcodes(action, true, true, true)
+	vim.api.nvim_input(actionReplaced)
+	vim.fn['repeat#set'](actionReplaced, vim.v.count) -- the vim-repeat magic
 end
 
 function RepeteableCommand(action)
@@ -92,9 +92,9 @@ wk.register({
 						cl = { function() RepeteableCommand(":BufferLineCloseRight<CR>") end, "Close right" },
 						e = { ":NvimTreeFocus<CR>", "Focus tree" },
 						h = { function() RepeteableBinding("<C-w>h") end, "Move to window on the left" },
-						j = { "<C-w>j", "Move to window below" },
-						k = { "<C-w>k", "Move to window above" },
-						l = { "<C-w>l", "Move to window on the right" },
+						j = { function() RepeteableBinding("<C-w>j") end, "Move to window below" },
+						k = { function() RepeteableBinding("<C-w>k") end, "Move to window above" },
+						l = { function() RepeteableBinding("<C-w>l") end, "Move to window on the right" },
 						p = { function() RepeteableCommand(":BufferLineTogglePin<CR>") end, "Pin" },
 						s = { function() RepeteableCommand(":split<CR>") end, "Split window horizontally" },
 						v = { function() RepeteableCommand(":vsplit<CR>") end, "Split window vertically" },
