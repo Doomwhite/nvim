@@ -11,138 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.1',
-		dependencies = { { 'nvim-lua/plenary.nvim' } }
-	},
-	{
-		'folke/tokyonight.nvim',
-		name = 'tokyonight',
-		config = function()
-			vim.cmd('colorscheme tokyonight')
-			vim.g.tokyonight_style = "storm"
-		end
-	},
-	{ "catppuccin/nvim",                 name = "catppuccin" },
-	{ 'ThePrimeagen/harpoon' },
-	{ 'mbbill/undotree' },
-	{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-	{ 'nvim-treesitter/playground' },
-	{ 'tpope/vim-fugitive' },
-	{ 'tpope/vim-repeat' },
-	{
-		'tummetott/unimpaired.nvim',
-		config = function()
-			require('unimpaired').setup {}
-		end
-	},
-	{
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v1.x',
-		dependencies = {
-			-- LSP Support
-			{ 'neovim/nvim-lspconfig' },          -- Required
-			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
-			{ 'williamboman/mason.nvim' },        -- Optional
 
-			-- Autocompletion
-			{ 'hrsh7th/cmp-buffer' },    -- Optional
-			{ 'hrsh7th/cmp-nvim-lsp' },  -- Required
-			{ 'hrsh7th/cmp-nvim-lua' },  -- Optional
-			{ 'hrsh7th/cmp-path' },      -- Optional
-			{ 'hrsh7th/nvim-cmp' },      -- Required
-			{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
-
-			-- Snippets
-			{ 'L3MON4D3/LuaSnip' },          -- Required
-			{ 'rafamadriz/friendly-snippets' }, -- Optional
-		}
-	},
-	{
-		'glepnir/lspsaga.nvim',
-		branch = 'main',
-		config = function()
-			require('lspsaga').setup({})
-		end,
-		dependencies = {
-			{ 'nvim-tree/nvim-web-devicons' },
-			{ 'nvim-treesitter/nvim-treesitter' }
-		}
-	},
-	{
-		'akinsho/toggleterm.nvim',
-		version = '*',
-		config = true
-	},
-	{ 'nvim-tree/nvim-web-devicons' },
-	{
-		'akinsho/bufferline.nvim',
-		version = 'v3.*',
-		dependencies = 'nvim-tree/nvim-web-devicons',
-		config = function()
-			require('toggleterm').setup()
-		end
-	},
-	{
-		'nvim-tree/nvim-tree.lua',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		tag = 'nightly' -- optional, updated every week (see issue #1193)
-	},
-	{
-		'terrortylor/nvim-comment',
-		config = function()
-			require('nvim_comment').setup()
-		end
-	},
-	{
-		'folke/trouble.nvim',
-		dependencies = 'nvim-tree/nvim-web-devicons',
-		config = function()
-			require('trouble').setup {}
-		end
-	},
-
-	{
-		"folke/which-key.nvim",
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup {}
-		end
-	},
-
-	{
-		'nvim-lualine/lualine.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' }
-	},
-
-	{
-		"ThePrimeagen/refactoring.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" }
-		}
-	},
-
-	{
-		"windwp/nvim-autopairs",
-		config = function() require("nvim-autopairs").setup {} end
-	},
-
-	{
-		'nvim-orgmode/orgmode',
-		config = function()
-			require('orgmode').setup {}
-		end
-	}
-}
-
+-- Lazy options
 local opts = {
 	root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
 	defaults = {
-		lazy = false,                          -- should plugins be lazy-loaded?
+		lazy = false,              -- should plugins be lazy-loaded?
 		version = nil,
 		-- default `cond` you can use to globally disable a lot of plugins
 		-- when running inside vscode for example
@@ -157,7 +31,7 @@ local opts = {
 		-- defaults for the `Lazy log` command
 		-- log = { "-10" }, -- show the last 10 commits
 		log = { "--since=3 days ago" }, -- show commits from the last 3 days
-		timeout = 120,                -- kill processes that take more than 2 minutes
+		timeout = 120,    -- kill processes that take more than 2 minutes
 		url_format = "https://github.com/%s.git",
 		-- lazy.nvim requires git >=2.19.0. If you really want to use lazy with an older version,
 		-- then set the below to false. This should work, but is NOT supported and will
@@ -168,7 +42,7 @@ local opts = {
 		-- directory where you store your local plugin projects
 		path = "~/projects",
 		---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
-		patterns = {},  -- For example {"folke"}
+		patterns = {}, -- For example {"folke"}
 		fallback = false, -- Fallback to git when local plugin doesn't exist
 	},
 	install = {
@@ -241,7 +115,7 @@ local opts = {
 		-- automatically check for plugin updates
 		enabled = false,
 		concurrency = nil, ---@type number? set to 1 to check for updates very slowly
-		notify = true,  -- get a notification when new updates are found
+		notify = true, -- get a notification when new updates are found
 		frequency = 3600, -- check for updates every hour
 	},
 	change_detection = {
@@ -255,9 +129,9 @@ local opts = {
 		},
 		reset_packpath = true, -- reset the package path to improve startup time
 		rtp = {
-			reset = true,      -- reset the runtime path to $VIMRUNTIME and your config directory
+			reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
 			---@type string[]
-			paths = {},        -- add any custom paths here that you want to includes in the rtp
+			paths = {}, -- add any custom paths here that you want to includes in the rtp
 			---@type string[] list any plugins you want to disable here
 			disabled_plugins = {
 				-- "gzip",
@@ -284,4 +158,176 @@ local opts = {
 	state = vim.fn.stdpath("state") .. "/lazy/state.json", -- state info for checker and other things
 }
 
+
+-- Lazy plugins
+local plugins = {
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.1',
+		dependencies = { { 'nvim-lua/plenary.nvim' } }
+	},
+	{
+		'folke/tokyonight.nvim',
+		name = 'tokyonight',
+		config = function()
+			vim.cmd('colorscheme tokyonight')
+			vim.g.tokyonight_style = "storm"
+		end
+	},
+	{ "catppuccin/nvim",                 name = "catppuccin" },
+	{ 'ThePrimeagen/harpoon' },
+	{ 'mbbill/undotree' },
+	{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
+	{ 'nvim-treesitter/playground' },
+	{ 'tpope/vim-fugitive' },
+	{ 'tpope/vim-repeat' },
+	{
+		'tummetott/unimpaired.nvim',
+		config = function()
+			require('unimpaired').setup {}
+		end
+	},
+	{
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v1.x',
+		dependencies = {
+			-- LSP Support
+			{ 'neovim/nvim-lspconfig' }, -- Required
+			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
+			{ 'williamboman/mason.nvim' }, -- Optional
+
+			-- Autocompletion
+			{ 'hrsh7th/cmp-buffer' }, -- Optional
+			{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
+			{ 'hrsh7th/cmp-nvim-lua' }, -- Optional
+			{ 'hrsh7th/cmp-path' }, -- Optional
+			{ 'hrsh7th/nvim-cmp' }, -- Required
+			{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
+
+			-- Snippets
+			{ 'L3MON4D3/LuaSnip' }, -- Required
+			{ 'rafamadriz/friendly-snippets' }, -- Optional
+		}
+	},
+	{
+		'glepnir/lspsaga.nvim',
+		branch = 'main',
+		config = function()
+			require('lspsaga').setup({})
+		end,
+		dependencies = {
+			{ 'nvim-tree/nvim-web-devicons' },
+			{ 'nvim-treesitter/nvim-treesitter' }
+		}
+	},
+	{
+		'akinsho/toggleterm.nvim',
+		version = '*',
+		config = true
+	},
+	{ 'nvim-tree/nvim-web-devicons' },
+	-- {
+	-- 	'akinsho/bufferline.nvim',
+	-- 	version = 'v3.*',
+	-- 	dependencies = 'nvim-tree/nvim-web-devicons',
+	-- 	config = function()
+	-- 		require('toggleterm').setup()
+	-- 	end
+	-- },
+	{
+		'nvim-tree/nvim-tree.lua',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		tag = 'nightly' -- optional, updated every week (see issue #1193)
+	},
+	{
+		'terrortylor/nvim-comment',
+		config = function()
+			require('nvim_comment').setup()
+		end
+	},
+	{
+		'folke/trouble.nvim',
+		dependencies = 'nvim-tree/nvim-web-devicons',
+		config = function()
+			require('trouble').setup {}
+		end
+	},
+
+	{
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup {}
+		end
+	},
+
+	{
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
+	},
+
+	{
+		"ThePrimeagen/refactoring.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" }
+		}
+	},
+
+	{
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {} end
+	},
+
+	{
+		'nvim-orgmode/orgmode',
+		config = function()
+			require('orgmode').setup {}
+		end
+	},
+
+	-- {
+	-- 	"nvim-neorg/neorg",
+	-- 	build = ":Neorg sync-parsers",
+	-- 	opts = {
+	-- 		load = {
+	-- 			["core.defaults"] = {},   -- Loads default behaviour
+	-- 			["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+	-- 			["core.norg.dirman"] = {  -- Manages Neorg workspaces
+	-- 				config = {
+	-- 					workspaces = {
+	-- 						notes = "~/notes",
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	dependencies = { { "nvim-lua/plenary.nvim" } },
+	-- },
+
+	{
+		'glepnir/dashboard-nvim',
+		event = 'VimEnter',
+		config = function()
+			require('dashboard').setup {
+				-- config
+			}
+		end,
+		dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	config = function()
+	-- 		require("noice").setup({})
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"rcarriga/nvim-notify",
+	-- 	}
+	-- }
+}
+
+
+-- Initialize lazy
 require("lazy").setup(plugins, opts)

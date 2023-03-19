@@ -19,10 +19,10 @@ function cwd()
 	print("Current working directory: " .. cwd)
 end
 
-vim.cmd([[
-  augroup remember_folds
-    autocmd!
-    autocmd BufWinLeave * if bufname("") != "" | mkview | endif
-    autocmd BufWinEnter * silent! loadview
-  augroup END
-]])
+-- vim.cmd([[
+--   augroup remember_folds
+--     autocmd!
+--     autocmd BufWinLeave * if bufname("") != "" | mkview | endif
+--     autocmd BufWinEnter * silent! loadview
+--   augroup END
+-- ]])
