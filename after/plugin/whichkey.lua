@@ -3,22 +3,31 @@ local ui = require("harpoon.ui")
 local wk = require("which-key")
 
 -- Keybinding
-function KB(action, description, isCommand, isRepeatable)
+function KB(action, description, isCommand, isRepeatable, usesCount)
 	if isRepeatable then
 		if isCommand then
 			return { function() RepeteableCommand(action) end, description }
 		else
-			return { function() RepeteableBinding(action) end, description }
+			return { function() RepeteableBinding(action, usesCount) end, description }
 		end
-	else
-		return { action, description }
 	end
+	if usesCount then
+		return { vim.v.count1 .. action, description }
+	end
+	return { action, description }
 end
 
-function RepeteableBinding(action)
-	local actionReplaced = vim.api.nvim_replace_termcodes(action, true, true, true)
-	vim.api.nvim_input(actionReplaced)
-	vim.fn['repeat#set'](actionReplaced, vim.v.count) -- the vim-repeat magic
+function RepeteableBinding(action, usesCount)
+	if usesCount then
+		local actionWithCount = vim.v.count1 .. action
+		local actionReplaced = vim.api.nvim_replace_termcodes(actionWithCount, true, true, true)
+		vim.api.nvim_input(actionReplaced)
+		vim.fn['repeat#set'](actionReplaced, vim.v.count) -- the vim-repeat magic
+	else
+		local actionReplaced = vim.api.nvim_replace_termcodes(action, true, true, true)
+		vim.api.nvim_input(actionReplaced)
+		vim.fn['repeat#set'](actionReplaced, vim.v.count) -- the vim-repeat magic
+	end
 end
 
 function RepeteableCommand(action)
@@ -54,63 +63,63 @@ wk.register({
 						name = "Leader second layer",
 						["p"] = {
 								name = "Packer",
-								["s"] = KB(":PackerSync<CR>", "Sync", false, false),
+								["s"] = KB(":PackerSync<CR>", "Sync", true, false, false),
 						},
 						g = { vim.cmd.Git, "Git fugitive" },
-						e = KB(":NvimTreeToggle<CR>", "Toggle tree", false, false),
+						e = KB(":NvimTreeToggle<CR>", "Toggle tree", true, false, false),
 						l = {
 								name = "Programming Languages",
 								c = {
 										name = "C++",
-										s = KB(":lua SetCompileVars()<CR>", "Sets the compiler variables", false, false),
-										S = KB(":lua SetMakeVar()<CR>", "Sets the make variable(without extension)", false, false),
-										t = KB(":lua RunCompiler()<CR>", "Executes the compiler", false, false),
-										T = KB(":lua RunCompilerWithCPP11()<CR>", "Executes the compiler with the C++ standard", false, false),
-										m = KB(":lua RunMakeAndExecute()<CR>", "Makes the file", false, false),
+										s = KB(":lua SetCompileVars()<CR>", "Sets the compiler variables", true, false, false),
+										S = KB(":lua SetMakeVar()<CR>", "Sets the make variable(without extension)", true, false, false),
+										t = KB(":lua RunCompiler()<CR>", "Executes the compiler", true, false, false),
+										T = KB(":lua RunCompilerWithCPP11()<CR>", "Executes the compiler with the C++ standard", true, false, false),
+										m = KB(":lua RunMakeAndExecute()<CR>", "Makes the file", true, false, false),
 								}
 						}
 				},
 				["."] = {
 						name = "Current directory",
-						d = KB(":echo expand('%p:h:')<CR>", "Prints the current buffer directory", false, false),
-						s = KB(":source<CR>", "Sources the current buffer", false, false),
+						d = KB(":echo expand('%p:h:')<CR>", "Prints the current buffer directory", true, false, false),
+						s = KB(":source<CR>", "Sources the current buffer", false, false, false),
 				},
-				q = KB(":q<CR>", "Quit", false, false),
-				["Q"] = KB(":q!<CR>", "Force quit", false, false),
-				t = KB(":ToggleTerm<CR>i", "Toggle terminal", false, false),
+				q = KB(":q<CR>", "Quit", false, false, false),
+				["Q"] = KB(":q!<CR>", "Force quit", false, false, false),
+				t = KB(":ToggleTerm<CR>i", "Toggle terminal", false, false, false),
 				f = {
 						name = "Find",
-						f = KB(":Telescope find_files<CR>", "Find files", false, false),
-						t = KB(":Telescope live_grep<CR>", "Find text", false, false),
+						f = KB(":Telescope find_files<CR>", "Find files", false, false, false),
+						t = KB(":Telescope live_grep<CR>", "Find text", false, false, false),
 				},
 				w = {
 						name = "Window/Buffer",
-						[","] = KB(":BufferLineCyclePrev<CR>", "Previous", true, true),
-						["1"] = KB(":BufferLineGoToBuffer 1<CR>", "Go to buffer 1", true, true),
-						["2"] = KB(":BufferLineGoToBuffer 2<CR>", "Go to buffer 2", true, true),
-						["3"] = KB(":BufferLineGoToBuffer 3<CR>", "Go to buffer 3", true, true),
-						["4"] = KB(":BufferLineGoToBuffer 4<CR>", "Go to buffer 4", true, true),
-						["5"] = KB(":BufferLineGoToBuffer 5<CR>", "Go to buffer 5", true, true),
-						["6"] = KB(":BufferLineGoToBuffer 6<CR>", "Go to buffer 6", true, true),
-						["7"] = KB(":BufferLineGoToBuffer 7<CR>", "Go to buffer 7", true, true),
-						["8"] = KB(":BufferLineGoToBuffer 8<CR>", "Go to buffer 8", true, true),
-						["9"] = KB(":BufferLineGoToBuffer 9<CR>", "Go to buffer 9", true, true),
-						[";"] = KB(":BufferLineCycleNext<CR>", "Next", true, true),
-						["="] = KB(":BufferLineSortByTabs<CR>", "Sort by tabs", true),
-						a = KB(":wa<CR>", "Save all", false, false),
-						q = KB(":wq<CR>", "Save and Quit", false, false),
+						[","] = KB(":BufferLineCyclePrev<CR>", "Previous", true, true, false),
+						["1"] = KB(":BufferLineGoToBuffer 1<CR>", "Go to buffer 1", true, true, false),
+						["2"] = KB(":BufferLineGoToBuffer 2<CR>", "Go to buffer 2", true, true, false),
+						["3"] = KB(":BufferLineGoToBuffer 3<CR>", "Go to buffer 3", true, true, false),
+						["4"] = KB(":BufferLineGoToBuffer 4<CR>", "Go to buffer 4", true, true, false),
+						["5"] = KB(":BufferLineGoToBuffer 5<CR>", "Go to buffer 5", true, true, false),
+						["6"] = KB(":BufferLineGoToBuffer 6<CR>", "Go to buffer 6", true, true, false),
+						["7"] = KB(":BufferLineGoToBuffer 7<CR>", "Go to buffer 7", true, true, false),
+						["8"] = KB(":BufferLineGoToBuffer 8<CR>", "Go to buffer 8", true, true, false),
+						["9"] = KB(":BufferLineGoToBuffer 9<CR>", "Go to buffer 9", true, true, false),
+						[";"] = KB(":BufferLineCycleNext<CR>", "Next", true, true, false),
+						["="] = KB(":BufferLineSortByTabs<CR>", "Sort by tabs", true, false),
+						a = KB(":wa<CR>", "Save all", false, false, false),
+						q = KB(":wq<CR>", "Save and Quit", false, false, false),
 						-- c = { function() RepeteableCommand(":BufferLineClose<CR>") end, "Close" },
-						ch = KB(":BufferLineCloseLeft<CR>", "Close left", true, true),
-						cl = KB(":BufferLineCloseRight<CR>", "Close right", true, true),
-						e = KB(":NvimTreeFocus<CR>", "Focus tree", true, true),
-						h = KB("<C-w>h", "Move to window on the left", false, true),
-						j = KB("<C-w>j", "Move to window below", false, true),
-						k = KB("<C-w>k", "Move to window above", false, true),
-						l = KB("<C-w>l", "Move to window on the right", false, true),
-						p = KB(":BufferLineTogglePin<CR>", "Pin", true, true),
-						s = KB(":split<CR>", "Split window horizontally", true, true),
-						v = KB(":vsplit<CR>", "Split window vertically", true, true),
-						w = KB(":BufferLinePick<CR>", "Pick", true, true),
+						ch = KB(":BufferLineCloseLeft<CR>", "Close left", true, true, false),
+						cl = KB(":BufferLineCloseRight<CR>", "Close right", true, true, false),
+						e = KB(":NvimTreeFocus<CR>", "Focus tree", true, true, false),
+						h = KB("<C-w>h", "Move to window on the left", false, true, true),
+						j = KB("<C-w>j", "Move to window below", false, true, true),
+						k = KB("<C-w>k", "Move to window above", false, true, true),
+						l = KB("<C-w>l", "Move to window on the right", false, true, true),
+						p = KB(":BufferLineTogglePin<CR>", "Pin", true, true, false),
+						s = KB(":split<CR>", "Split window horizontally", true, true, false),
+						v = KB(":vsplit<CR>", "Split window vertically", true, true, false),
+						w = KB(":BufferLinePick<CR>", "Pick", true, true, false),
 				},
 				h = {
 						name = "Harpoon",
@@ -125,52 +134,50 @@ wk.register({
 		g = {
 				d = {
 						name = "Debugging",
-						p = KB(":lua require('refactoring').debug.printf({ normal = true })<CR>", "Prints under the cursor", false, false),
-						v = KB(":lua require('refactoring').debug.print_var({ normal = true })<CR>", "Print var under the cursor", false, false),
-						c = KB(":lua require('refactoring').debug.print_var({})<CR>", "Clears the prints", false, false),
+						p = KB(":lua require('refactoring').debug.printf({ normal = true })<CR>", "Prints under the cursor", true, false, false),
+						v = KB(":lua require('refactoring').debug.print_var({ normal = true })<CR>", "Print var under the cursor", true, false, false),
+						c = KB(":lua require('refactoring').debug.print_var({})<CR>", "Clears the prints", true, false, false),
 				},
 				o = {
 						name = "Refactoring",
-						i = KB("<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline variable", false, false),
-						e = KB("<Cmd>lua require('refactoring').refactor('Extract Block')<CR>", "Extract block", false, false),
-						f = KB("<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract block to file", false, false),
+						i = KB("<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline variable", true, false, false),
+						e = KB("<Cmd>lua require('refactoring').refactor('Extract Block')<CR>", "Extract block", true, false, false),
+						f = KB("<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract block to file", true, false, false),
 				},
 				e = {
 						name = "Trouble.nvim",
-						l = KB(":TroubleToggle<CR>", "Toggle quickfix list", true, true)
+						l = KB(":TroubleToggle<CR>", "Toggle quickfix list", true, true, false),
 				},
 		},
-		["<C-Up>"] = KB(":resize -2<CR>", "Increase window height", true, true),
-		["<C-Down>"] = KB(":resize +2<CR>", "Decrease window height", true, true),
-		["<C-Right>"] = KB(":vertical resize -2<CR>", "Decrease window width", true, true),
+		["<C-Up>"] = KB(":resize -2<CR>", "Increase window height", true, true, true),
+		["<C-Down>"] = KB(":resize +2<CR>", "Decrease window height", true, true, true),
+		["<C-Right>"] = KB(":vertical resize -2<CR>", "Decrease window width", true, true, true),
 		["<C-Left>"] = KB(":vertical resize +2<CR>", "Increase window width", true, true, true),
-		-- ["<C-Up>"] = { ":resize +2<CR>", "Increase window height" },
-		-- ["<C-Down>"] = { ":resize -2<CR>", "Decrease window height" },
-		["H"] = KB("^", "Move to beginning of line", false, false),
-		["L"] = KB("$", "Move to end of line", false, false),
+		["H"] = KB("^", "Move to beginning of line", false, false, true),
+		["L"] = KB("$", "Move to end of line", false, false, true),
 		[";"] = {
 				name = "Unimpaired",
-				[";"] = KB(";", ";", false, false)
+				[";"] = KB(";", ";", false, false, false),
+				-- a = {}
 		},
 		[","] = {
 				name = "Unimpaired",
-				[","] = KB(",", ",", false, false)
+				[","] = KB(",", ",", false, false, false),
 		},
 		z = {
-				["Q"] = KB(":q!<CR>", "Force quit", true, false),
-				["Z"] = KB(":wq<CR>", "Save and Quit", true, false),
-				e = KB(":NvimTreeToggle<CR>", "Toggle tree", true, true),
-				q = KB(":q!<CR>", "Quit", true, true),
+				["Q"] = KB(":q!<CR>", "Force quit", true, false, false),
+				["Z"] = KB(":wq<CR>", "Save and Quit", true, false, false),
+				e = KB(":NvimTreeToggle<CR>", "Toggle tree", true, true, false),
+				q = KB(":q!<CR>", "Quit", true, true, false),
 		},
 		["Z"] = {
 				["Q"] = { function() RepeteableCommand(":q!<CR>") end, "Force quit" },
-				["Z"] = KB(":wq<CR>", "Save and Quit", true, false),
+				["Z"] = KB(":wq<CR>", "Save and Quit", true, false, false),
 				e = { function() RepeteableCommand(":NvimTreeToggle<CR>") end, "Toggle tree" },
-				q = KB(":q!<CR>", "Quit", false, false),
+				q = KB(":q!<CR>", "Quit", false, false, false),
 		},
-		["J"] = KB("}", "}", false, false),
-		["K"] = KB("{", "{", false, false)
-		,
+		["J"] = KB("}", "}", false, false, false),
+		["K"] = KB("{", "{", false, false, false),
 		-- ["="] = { ":CocCommand prettier.forceFormatDocument<CR>", "Format document" }
 }, n_opts)
 
@@ -184,7 +191,7 @@ local i_opts = {
 }
 
 wk.register({
-		["jk"] = KB("<ESC>", "Exit insert mode (jk)", false, false)
+		["jk"] = KB("<ESC>", "Exit insert mode (jk)", false, false, false)
 }, i_opts)
 
 local v_opts = {
@@ -201,15 +208,15 @@ wk.register({
 		g = {
 				d = {
 						name = "Debugging",
-						p = KB(":lua require('refactoring').debug.printf()<CR>", "Prints selected text", false, false),
-						v = KB(":lua require('refactoring').debug.print_var()<CR>", "Print var selected text", false, false),
+						p = KB(":lua require('refactoring').debug.printf()<CR>", "Prints selected text", false, false, false),
+						v = KB(":lua require('refactoring').debug.print_var()<CR>", "Print var selected text", false, false, false),
 				},
-				o = KB(":lua require('refactoring').select_refactor()<CR>", "Refactoring", false, false),
+				o = KB(":lua require('refactoring').select_refactor()<CR>", "Refactoring", false, false, false),
 		},
-		["H"] = KB("^", "Move to beginning of line", false, false),
-		["L"] = KB("$", "Move to end of line", false, false),
-		["J"] = KB("}", "}", false, false),
-		["K"] = KB("{", "{", false, false)
+		["H"] = KB("^", "Move to beginning of line", false, false, false),
+		["L"] = KB("$", "Move to end of line", false, false, false),
+		["J"] = KB("}", "}", false, false, false),
+		["K"] = KB("{", "{", false, false, false)
 }, v_opts)
 
 local x_opts = {
@@ -238,12 +245,12 @@ local t_opts = {
 }
 
 wk.register({
-		["<C-h>"] = KB("<C-\\><C-N><C-w>h", "Move left in terminal mode", false, false),
-		["<C-j>"] = KB("<C-\\><C-N><C-w>j", "Move down in terminal mode", false, false),
-		["<C-k>"] = KB("<C-\\><C-N><C-w>k", "Move up in terminal mode", false, false),
-		["<C-l>"] = KB("<C-\\><C-N><C-w>l", "Move right in terminal mode", false, false),
-		["<Esc>"] = KB("<C-\\><C-n>", "Exit terminal mode", false, false),
-		["<leader>t"] = KB("<C-\\><C-n>:ToggleTerm<CR>", "Toggle terminal", false, false)
+		["<C-h>"] = KB("<C-\\><C-N><C-w>h", "Move left in terminal mode", false, false, false),
+		["<C-j>"] = KB("<C-\\><C-N><C-w>j", "Move down in terminal mode", false, false, false),
+		["<C-k>"] = KB("<C-\\><C-N><C-w>k", "Move up in terminal mode", false, false, false),
+		["<C-l>"] = KB("<C-\\><C-N><C-w>l", "Move right in terminal mode", false, false, false),
+		["<Esc>"] = KB("<C-\\><C-n>", "Exit terminal mode", false, false, false),
+		["<leader>t"] = KB("<C-\\><C-n>:ToggleTerm<CR>", "Toggle terminal", false, false, false)
 }, t_opts)
 
 local c_opts = {
@@ -256,7 +263,7 @@ local c_opts = {
 }
 
 wk.register({
-		["<C-v>"] = KB("<C-r>*", "Paste", false, false),
+		["<C-v>"] = KB("<C-r>*", "Paste", false, false, false),
 }, c_opts)
 
 
