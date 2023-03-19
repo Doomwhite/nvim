@@ -22,7 +22,7 @@ end
 vim.cmd([[
   augroup remember_folds
     autocmd!
-    autocmd BufWinLeave * mkview
+    autocmd BufWinLeave * if bufname("") != "" | mkview | endif
     autocmd BufWinEnter * silent! loadview
   augroup END
 ]])
