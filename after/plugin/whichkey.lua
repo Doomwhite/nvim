@@ -140,7 +140,7 @@ wk.register({
 		},
 	},
 	g = {
-		d = {
+		["D"] = {
 			name = "Debugging",
 			p = KB(":lua require('refactoring').debug.printf({ normal = true })<CR>", "Prints under the cursor", true, false,
 				false),

@@ -210,14 +210,15 @@ local plugins = {
 		}
 	},
 	{
-		'glepnir/lspsaga.nvim',
-		branch = 'main',
+		"glepnir/lspsaga.nvim",
+		event = "BufRead",
 		config = function()
-			require('lspsaga').setup({})
+			require("lspsaga").setup({})
 		end,
 		dependencies = {
-			{ 'nvim-tree/nvim-web-devicons' },
-			{ 'nvim-treesitter/nvim-treesitter' }
+			{ "nvim-tree/nvim-web-devicons" },
+			--Please make sure you install markdown and markdown_inline parser
+			{ "nvim-treesitter/nvim-treesitter" }
 		}
 	},
 	{
@@ -329,5 +330,5 @@ local plugins = {
 }
 
 
--- Initialize lazy
+-- Initialize lazy.nvim
 require("lazy").setup(plugins, opts)
