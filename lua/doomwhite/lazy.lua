@@ -163,6 +163,7 @@ local opts = {
 local plugins = {
 	{
 		'nvim-telescope/telescope.nvim',
+		lazy = true,
 		tag = '0.1.1',
 		dependencies = { { 'nvim-lua/plenary.nvim' } }
 	},
@@ -174,13 +175,33 @@ local plugins = {
 			vim.g.tokyonight_style = "storm"
 		end
 	},
-	{ "catppuccin/nvim",                 name = "catppuccin" },
-	{ 'ThePrimeagen/harpoon' },
-	{ 'mbbill/undotree' },
-	{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-	{ 'nvim-treesitter/playground' },
-	{ 'tpope/vim-fugitive' },
-	{ 'tpope/vim-repeat' },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin"
+	},
+	{
+		'ThePrimeagen/harpoon',
+		lazy = true
+	},
+	{
+		'mbbill/undotree',
+		lazy = true
+	},
+	{
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate'
+	},
+	{
+		'nvim-treesitter/playground',
+		lazy = true
+	},
+	{
+		'tpope/vim-fugitive',
+		lazy = true
+	},
+	{
+		'tpope/vim-repeat',
+	},
 	{
 		'tummetott/unimpaired.nvim',
 		config = function()
@@ -190,18 +211,20 @@ local plugins = {
 	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v1.x',
+		-- lazy = true,
 		dependencies = {
 			-- LSP Support
 			{ 'neovim/nvim-lspconfig' },          -- Required
 			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
 			{ 'williamboman/mason.nvim' },        -- Optional
+			{ 'jay-babu/mason-nvim-dap.nvim' },
 
 			-- Autocompletion
+			{ 'hrsh7th/nvim-cmp' },
 			{ 'hrsh7th/cmp-buffer' },    -- Optional
 			{ 'hrsh7th/cmp-nvim-lsp' },  -- Required
 			{ 'hrsh7th/cmp-nvim-lua' },  -- Optional
 			{ 'hrsh7th/cmp-path' },      -- Optional
-			{ 'hrsh7th/nvim-cmp' },      -- Required
 			{ 'saadparwaiz1/cmp_luasnip' }, -- Optional
 
 			-- Snippets
@@ -217,12 +240,12 @@ local plugins = {
 		end,
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
-			--Please make sure you install markdown and markdown_inline parser
 			{ "nvim-treesitter/nvim-treesitter" }
 		}
 	},
 	{
 		'akinsho/toggleterm.nvim',
+		lazy = true,
 		version = '*',
 		config = true
 	},
@@ -237,17 +260,20 @@ local plugins = {
 	-- },
 	{
 		'nvim-tree/nvim-tree.lua',
+		lazy = true,
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		tag = 'nightly' -- optional, updated every week (see issue #1193)
 	},
 	{
 		'terrortylor/nvim-comment',
+		keys = { { "g", mode = "v" }, { "g", mode = "n" } },
 		config = function()
 			require('nvim_comment').setup()
 		end
 	},
 	{
 		'folke/trouble.nvim',
+		cmd = "TroubleToggle",
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
 			require('trouble').setup {}
@@ -256,6 +282,7 @@ local plugins = {
 
 	{
 		"folke/which-key.nvim",
+		lazy = true,
 		config = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
@@ -265,6 +292,7 @@ local plugins = {
 
 	{
 		'nvim-lualine/lualine.nvim',
+		lazy = true,
 		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 
@@ -283,6 +311,7 @@ local plugins = {
 
 	{
 		'nvim-orgmode/orgmode',
+		ft = 'org',
 		config = function()
 			require('orgmode').setup {}
 		end
@@ -330,7 +359,15 @@ local plugins = {
 	-- }
 	{
 		'mfussenegger/nvim-dap',
-		dependencies = { 'rcarriga/nvim-dap-ui' }
+		cmd = "DapContinue",
+		dependencies = {
+			'rcarriga/nvim-dap-ui',
+			'ldelossa/nvim-dap-projects'
+		}
+	},
+	{
+		'xiyaowong/transparent.nvim',
+		lazy = false
 	},
 }
 
