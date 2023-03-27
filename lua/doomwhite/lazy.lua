@@ -217,7 +217,7 @@ local plugins = {
 			{ 'neovim/nvim-lspconfig' },          -- Required
 			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
 			{ 'williamboman/mason.nvim' },        -- Optional
-			{ 'jay-babu/mason-nvim-dap.nvim' },
+			-- { 'jay-babu/mason-nvim-dap.nvim' },
 
 			-- Autocompletion
 			{ 'hrsh7th/nvim-cmp' },
@@ -357,17 +357,20 @@ local plugins = {
 	-- 		"rcarriga/nvim-notify",
 	-- 	}
 	-- }
-	{
-		'mfussenegger/nvim-dap',
-		cmd = "DapContinue",
-		dependencies = {
-			'rcarriga/nvim-dap-ui',
-			'ldelossa/nvim-dap-projects'
-		}
-	},
+	-- {
+	-- 	'mfussenegger/nvim-dap',
+	-- 	cmd = "DapContinue",
+	-- 	dependencies = {
+	-- 		'rcarriga/nvim-dap-ui',
+	-- 		'ldelossa/nvim-dap-projects'
+	-- 	}
+	-- },
 	{
 		'xiyaowong/transparent.nvim',
 		lazy = false
+	},
+	{
+		'puremourning/vimspector'
 	},
 }
 

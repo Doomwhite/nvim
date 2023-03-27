@@ -145,5 +145,5 @@ function setup_mason_dap()
 end
 
 setup_lsp()
-setup_dap()
-setup_mason_dap()
+-- setup_dap()
+-- setup_mason_dap()
