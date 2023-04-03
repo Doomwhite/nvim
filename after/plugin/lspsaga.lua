@@ -43,14 +43,14 @@ end
 
 function setup_keymaps()
 	local keymap = vim.keymap.set
-	keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>")
-	keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+	-- keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>")
+	-- keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
 	-- Code action
-	keymap({ "n", "v" }, "gq", "<cmd>Lspsaga code_action<CR>")
+	-- keymap({ "n", "v" }, "gq", "<cmd>Lspsaga code_action<CR>")
 
 	-- Rename all occurrences of the hovered word for the entire file
-	keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>")
+	-- keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>")
 
 	-- Rename all occurrences of the hovered word for the selected files
 	-- keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
@@ -60,7 +60,7 @@ function setup_keymaps()
 	-- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
 	-- It also supports tagstack
 	-- Use <C-t> to jump back
-	keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
+	-- keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
 
 	-- Peek type definition
 	-- You can edit the file containing the type definition in the floating window
@@ -107,7 +107,7 @@ function setup_keymaps()
 	-- there is no information available.
 	-- To disable it just use ":Lspsaga hover_doc ++quiet"
 	-- Pressing the key twice will enter the hover window
-	keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>")
+	-- keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>")
 
 	-- If you want to keep the hover window in the top right hand corner,
 	-- you can pass the ++keep argument

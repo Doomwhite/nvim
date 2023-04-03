@@ -74,7 +74,6 @@ function setup_normal()
 					["s"] = KB(":PackerSync<CR>", "Sync", true, false, false),
 				},
 				g = { vim.cmd.Git, "Git fugitive" },
-				e = KB(":NvimTreeToggle<CR>", "Toggle tree", true, false, false),
 				l = {
 					name = "Programming Languages",
 					c = {
@@ -121,7 +120,7 @@ function setup_normal()
 				-- c = { function() RepeteableCommand(":BufferLineClose<CR>") end, "Close" },
 				-- ch = KB(":BufferLineCloseLeft<CR>", "Close left", true, true, false),
 				-- cl = KB(":BufferLineCloseRight<CR>", "Close right", true, true, false),
-				e = KB(":NvimTreeFocus<CR>", "Focus tree", true, true, false),
+				-- e = KB(":NvimTreeFocus<CR>", "Focus tree", true, true, false),
 				h = KB("<C-w>h", "Move to window on the left", false, true, true),
 				j = KB("<C-w>j", "Move to window below", false, true, true),
 				k = KB("<C-w>k", "Move to window above", false, true, true),
@@ -150,13 +149,13 @@ function setup_normal()
 					false, false),
 				c = KB(":lua require('refactoring').debug.print_var({})<CR>", "Clears the prints", true, false, false),
 			},
-			o = {
-				name = "Refactoring",
-				i = KB("<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline variable", true, false, false),
-				e = KB("<Cmd>lua require('refactoring').refactor('Extract Block')<CR>", "Extract block", true, false, false),
-				f = KB("<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract block to file", true,
-					false, false),
-			},
+			-- o = {
+			-- 	name = "Refactoring",
+			-- 	i = KB("<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline variable", true, false, false),
+			-- 	e = KB("<Cmd>lua require('refactoring').refactor('Extract Block')<CR>", "Extract block", true, false, false),
+			-- 	f = KB("<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract block to file", true,
+			-- 		false, false),
+			-- },
 			e = {
 				name = "Trouble.nvim",
 				l = KB(":TroubleToggle<CR>", "Toggle quickfix list", true, true, false),
@@ -171,22 +170,23 @@ function setup_normal()
 		[";"] = {
 			name = "Unimpaired",
 			[";"] = KB(";", ";", false, false, false),
+			["E"] = KB(":NvimTreeToggle<CR>", "Toggle tree", true, false, false),
+			e = KB(":NvimTreeFocus<CR>", "Focus tree", true, false, false),
+			z = KB(":qw!<CR>", "Quit", true, true, false),
 		},
 		[","] = {
 			name = "Unimpaired",
 			[","] = KB(",", ",", false, false, false),
 		},
 		z = {
-			["Q"] = KB(":q!<CR>", "Force quit", true, false, false),
-			["Z"] = KB(":wq<CR>", "Save and Quit", true, false, false),
+			["Q"] = KB(":q!<CR>", "Force quit", true, true, false),
+			["Z"] = KB(":wq<CR>", "Save and Quit", true, true, false),
 			e = KB(":NvimTreeToggle<CR>", "Toggle tree", true, true, false),
 			q = KB(":q!<CR>", "Quit", true, true, false),
 		},
 		["Z"] = {
-			["Q"] = { function() RepeteableCommand(":q!<CR>") end, "Force quit" },
 			["Z"] = KB(":wq<CR>", "Save and Quit", true, false, false),
-			e = { function() RepeteableCommand(":NvimTreeToggle<CR>") end, "Toggle tree" },
-			q = KB(":q!<CR>", "Quit", false, false, false),
+			q = KB(":q!<CR>", "Force Quit", false, false, false),
 		},
 		["J"] = KB("}", "}", false, false, false),
 		["K"] = KB("{", "{", false, false, false),
@@ -225,12 +225,12 @@ function setup_visual()
 	-- Visual model keybindings
 	wk.register({
 		g = {
-			d = {
-				name = "Debugging",
-				p = KB(":lua require('refactoring').debug.printf()<CR>", "Prints selected text", false, false, false),
-				v = KB(":lua require('refactoring').debug.print_var()<CR>", "Print var selected text", false, false, false),
-			},
-			o = KB(":lua require('refactoring').select_refactor()<CR>", "Refactoring", false, false, false),
+			-- d = {
+			-- 	name = "Debugging",
+			-- 	p = KB(":lua require('refactoring').debug.printf()<CR>", "Prints selected text", false, false, false),
+			-- 	v = KB(":lua require('refactoring').debug.print_var()<CR>", "Print var selected text", false, false, false),
+			-- },
+			-- o = KB(":lua require('refactoring').select_refactor()<CR>", "Refactoring", false, false, false),
 		},
 		["H"] = KB("^", "Move to beginning of line", false, false, false),
 		["L"] = KB("$", "Move to end of line", false, false, false),
