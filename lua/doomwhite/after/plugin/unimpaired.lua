@@ -1,4 +1,8 @@
-function setup()
+local M = {
+	'tummetott/unimpaired.nvim',
+}
+
+function M.config()
 	require('unimpaired').setup {
 		default_keymaps = true,
 		keymaps = {
@@ -386,4 +390,4 @@ function setup()
 	}
 end
 
-setup()
+return M

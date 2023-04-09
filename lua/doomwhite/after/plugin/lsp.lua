@@ -162,4 +162,4 @@ end
 
 setup_lsp()
 setup_dap()
-setup_mason_dap()
+-- setup_mason_dap()

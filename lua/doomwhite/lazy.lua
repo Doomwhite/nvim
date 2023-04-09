@@ -158,6 +158,9 @@ local opts = {
 	state = vim.fn.stdpath("state") .. "/lazy/state.json", -- state info for checker and other things
 }
 
+local treesitter = require("after.plugin.treesitter")
+local unimpaired = require("after.plugin.unimpaired")
+local whichkey = require("after.plugin.whichkey")
 
 -- Lazy plugins
 local plugins = {
@@ -187,10 +190,7 @@ local plugins = {
 		'mbbill/undotree',
 		lazy = true
 	},
-	{
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	},
+	treesitter,
 	{
 		'nvim-treesitter/playground',
 		lazy = true
@@ -202,12 +202,7 @@ local plugins = {
 	{
 		'tpope/vim-repeat',
 	},
-	{
-		'tummetott/unimpaired.nvim',
-		config = function()
-			require('unimpaired').setup {}
-		end
-	},
+	unimpaired,
 	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v1.x',
@@ -217,7 +212,7 @@ local plugins = {
 			{ 'neovim/nvim-lspconfig' },          -- Required
 			{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
 			{ 'williamboman/mason.nvim' },        -- Optional
-			{ 'jay-babu/mason-nvim-dap.nvim' },
+			-- { 'jay-babu/mason-nvim-dap.nvim' },
 
 			-- Autocompletion
 			{ 'hrsh7th/nvim-cmp' },
@@ -280,15 +275,7 @@ local plugins = {
 		end
 	},
 
-	{
-		"folke/which-key.nvim",
-		lazy = true,
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup {}
-		end
-	},
+	whichkey,
 
 	{
 		'nvim-lualine/lualine.nvim',
@@ -398,6 +385,15 @@ local plugins = {
 		"ellisonleao/glow.nvim",
 		config = true,
 		cmd = "Glow"
+	},
+
+	{
+		'jedrzejboczar/toggletasks.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'akinsho/toggleterm.nvim',
+			'nvim-telescope/telescope.nvim/',
+		},
 	}
 }
 

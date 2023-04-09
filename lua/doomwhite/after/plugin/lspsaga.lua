@@ -124,5 +124,5 @@ function setup_keymaps()
 	-- keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
 end
 
-setup()
-setup_keymaps()
+-- setup()
+-- setup_keymaps()
