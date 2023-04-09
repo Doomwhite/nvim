@@ -369,6 +369,36 @@ local plugins = {
 		'xiyaowong/transparent.nvim',
 		lazy = false
 	},
+	{
+		'saecki/crates.nvim',
+		event = 'BufRead Cargo.toml',
+		tag = 'v0.3.0',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		config = function()
+			require('crates').setup()
+		end,
+	},
+
+	-- { 'andweeb/presence.nvim' },
+
+	{
+		'willothy/nvim-cokeline',
+		-- dependencies = 'kyazdani42/nvim-web-devicons', -- If you want devicons
+	},
+
+	{
+		'Bekaboo/deadcolumn.nvim'
+	},
+
+	{
+		'chentoast/marks.nvim'
+	},
+
+	{
+		"ellisonleao/glow.nvim",
+		config = true,
+		cmd = "Glow"
+	}
 }
 
 
