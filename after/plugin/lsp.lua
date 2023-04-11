@@ -157,7 +157,7 @@ function setup_mason_dap()
 		automatic_setup = true,
 	})
 
-	mason_dap.setup_handlers()
+	-- mason_dap.setup_handlers()
 end
 
 setup_lsp()
