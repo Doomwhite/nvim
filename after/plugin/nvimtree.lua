@@ -35,7 +35,7 @@ function setup()
 			relativenumber = false,
 			signcolumn = "yes",
 			mappings = {
-				custom_only = false,
+				custom_only = true,
 				list = { -- BEGIN_DEFAULT_MAPPINGS
 					{ key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
 					{ key = "<C-e>",                          action = "edit_in_place" },

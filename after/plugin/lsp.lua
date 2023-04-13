@@ -149,15 +149,20 @@ end
 
 function setup_mason_dap()
 	local mason = require("mason")
-	mason.setup()
+	mason.setup({
+		log_level = vim.log.levels.DEBUG
+	})
 	local mason_dap = require("mason-nvim-dap")
 	mason_dap.setup({
-		ensure_installed = { 'codelldb' },
+		ensure_installed = { 'stylua', 'jq' },
 		automatic_installation = true,
 		automatic_setup = true,
+		handlers = {
+			function(config)
+				mason_dap.default_setup(config)
+			end,
+		},
 	})
-
-	-- mason_dap.setup_handlers()
 end
 
 setup_lsp()
