@@ -149,9 +149,7 @@ end
 
 function setup_mason_dap()
 	local mason = require("mason")
-	mason.setup({
-		log_level = vim.log.levels.DEBUG
-	})
+	mason.setup()
 	local mason_dap = require("mason-nvim-dap")
 	mason_dap.setup({
 		ensure_installed = { 'stylua', 'jq' },

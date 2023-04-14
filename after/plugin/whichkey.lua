@@ -93,7 +93,7 @@ function setup_normal()
 			},
 			q = KB(":q<CR>", "Quit", false, false, false),
 			["Q"] = KB(":q!<CR>", "Force quit", false, false, false),
-			t = KB(":ToggleTerm<CR>", "Toggle terminal", false, false, false),
+			-- t = KB(":ToggleTerm<CR>", "Toggle terminal", false, false, false),
 			u = KB(":UndotreeToggle<CR>", "Undo tree history toggle", true, false, false),
 			f = {
 				name = "Find",
@@ -165,6 +165,7 @@ function setup_normal()
 		["<C-Down>"] = KB(":resize -2<CR>", "Decrease window height", true, true, true),
 		["<C-Right>"] = KB(":vertical resize +2<CR>", "Decrease window width", true, true, true),
 		["<C-Left>"] = KB(":vertical resize -2<CR>", "Increase window width", true, true, true),
+		["<C-t>"] = KB(":ToggleTerm<CR>", "Toggle terminal", false, false, false),
 		["H"] = KB("^", "Move to beginning of line", false, false, true),
 		["L"] = KB("$", "Move to end of line", false, false, true),
 		[";"] = {
@@ -278,7 +279,7 @@ function setup_terminal()
 		["<C-k>"] = KB("<C-\\><C-N><C-w>k", "Move up in terminal mode", false, false, false),
 		["<C-l>"] = KB("<C-\\><C-N><C-w>l", "Move right in terminal mode", false, false, false),
 		["<Esc>"] = KB("<C-\\><C-n>", "Exit terminal mode", false, false, false),
-		["<leader>t"] = KB("<C-\\><C-n>:ToggleTerm<CR>", "Toggle terminal", false, false, false)
+		["<C-t>"] = KB("<C-\\><C-n>:ToggleTerm<CR>", "Toggle terminal", false, false, false)
 	}, t_opts)
 end
 
