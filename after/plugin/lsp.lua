@@ -5,13 +5,14 @@ function setup_lsp()
 		manage_nvim_cmp = true,
 		suggest_lsp_servers = false,
 	})
-
 	lsp.ensure_installed({
 		'clangd',
-		'tsserver',
+		'cmake',
 		'eslint',
-		'rust_analyzer',
 		'lua_ls',
+		'rust_analyzer',
+		'tsserver',
+		'zls'
 	})
 
 	-- Keybindings
@@ -152,7 +153,15 @@ function setup_mason_dap()
 	mason.setup()
 	local mason_dap = require("mason-nvim-dap")
 	mason_dap.setup({
-		ensure_installed = { 'stylua', 'jq' },
+		ensure_installed = {
+			"chrome-debug-adapter",
+			"firefox-debug-adapter",
+			"codelldb",
+			"cpptools",
+			"js-debug-adapter",
+			'stylua',
+			'jq'
+		},
 		automatic_installation = true,
 		automatic_setup = true,
 		handlers = {

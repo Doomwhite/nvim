@@ -15,7 +15,31 @@ function setup()
 		end,
 
 		-- A list of parser names, or "all" (the four listed parsers should always be installed)
-		ensure_installed = { "help", "javascript", "typescript", "c", "lua", "vim", "markdown", "markdown_inline", "rust" },
+		-- ensure_installed = { "help", "javascript", "typescript", "c", "lua", "vim", "markdown", "markdown_inline", "rust" },
+
+		ensure_installed = {
+			"bash",
+			"c",
+			"css",
+			"godot_resource",
+			"http",
+			"javascript",
+			"jsonc",
+			"llvm",
+			"lua",
+			"make",
+			"markdown",
+			"markdown_inline",
+			"query",
+			"slint",
+			"toml",
+			"typescript",
+			"vim",
+			"vimdoc",
+			"wgsl_bevy",
+			"yaml",
+			"zig",
+		},
 
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = false,
