@@ -172,7 +172,9 @@ function setup_normal()
 			name = "Unimpaired",
 			[";"] = KB(";", ";", false, false, false),
 			["E"] = KB(":NvimTreeToggle<CR>", "Toggle tree", true, false, false),
+			["Q"] = KB(":bdelete!<CR>", "Force delete buffer", true, true, false),
 			e = KB(":NvimTreeFocus<CR>", "Focus tree", true, false, false),
+			q = KB(":bdelete<CR>", "Delete buffer", true, true, false),
 			z = KB(":qw!<CR>", "Quit", true, true, false),
 		},
 		[","] = {
