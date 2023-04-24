@@ -1,4 +1,5 @@
 require("doomwhite.autocmds")
+require("doomwhite.functions")
 require("doomwhite.lazy")
 require("doomwhite.remap")
 require("doomwhite.set")

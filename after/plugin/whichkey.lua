@@ -307,4 +307,18 @@ setup_visual_line()
 setup_terminal()
 setup_command()
 
+-- vim.keymap.set({ 'n', 'v', 'x' }, '<C-u>', "15k")
+-- vim.keymap.set({ 'n', 'v', 'x' }, '<C-d>', "15j")
+
+-- vim.api.nvim_set_keymap('n', '<expr> <C-u>', "(vim.api.nvim_win_get_height(0)/4) .. 'k'", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<expr> <C-d>', "(vim.api.nvim_win_get_height(0)/4) .. 'j'", { noremap = true, silent = true })
+
+-- local actionReplaced = vim.api.nvim_replace_termcodes(":nnoremap <expr> <C-u> (winheight(0)/4).'k'", true, true, true)
+-- vim.api.nvim_input(actionReplaced)
+-- -- vim.fn['repeat#set'](, 0)
+-- -- vim.fn['repeat#set'](":nnoremap <expr> <C-d> (winheight(0)/4).'j'", 0)
+
+-- vim.keymap.set({ "n", "v", "x" }, "<C-u>", ":lua scroll_one_quarter('up')<CR>", { silent = true })
+-- vim.keymap.set({ "n", "v", "x" }, "<C-d>", ":lua scroll_one_quarter('down')<CR>", { silent = true })
+
 -- vim.api.nvim_set_keymap('n', '<Plug>MyWonderfulMap', ":lua require'My_module'.my_function()<CR>", {noremap=true})

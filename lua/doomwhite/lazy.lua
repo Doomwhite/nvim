@@ -398,7 +398,13 @@ local plugins = {
 		"ellisonleao/glow.nvim",
 		config = true,
 		cmd = "Glow"
-	}
+	},
+
+	-- {
+	-- 	'declancm/cinnamon.nvim',
+	-- 	config = function() require('cinnamon').setup() end
+	-- }
+
 }
 
 
