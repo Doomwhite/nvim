@@ -404,7 +404,9 @@ local plugins = {
 	-- 	'declancm/cinnamon.nvim',
 	-- 	config = function() require('cinnamon').setup() end
 	-- }
-
+	{
+		{ "shortcuts/no-neck-pain.nvim", version = "*" }
+	},
 }
 
 
