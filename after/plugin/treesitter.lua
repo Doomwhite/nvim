@@ -20,6 +20,7 @@ function setup()
 		ensure_installed = {
 			"bash",
 			"c",
+			"comment",
 			"css",
 			"godot_resource",
 			"http",

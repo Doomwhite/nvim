@@ -407,8 +407,22 @@ local plugins = {
 	{
 		{ "shortcuts/no-neck-pain.nvim", version = "*" }
 	},
-}
 
+	--{
+	--	"nvim-neo-tree/neo-tree.nvim",
+	--	version = "v2.x",
+	--	dependencies = {
+	--		"nvim-lua/plenary.nvim",
+	--		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	--		"MunifTanjim/nui.nvim",
+	--	}
+	--},
+
+	{
+		"folke/todo-comments.nvim",
+		dependencies = "nvim-lua/plenary.nvim"
+	},
+}
 
 -- Initialize lazy.nvim
 require("lazy").setup(plugins, opts)
