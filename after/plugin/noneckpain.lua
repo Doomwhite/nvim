@@ -63,17 +63,29 @@ function setup()
 		buffers = {
 			-- When `true`, the side buffers will be named `no-neck-pain-left` and `no-neck-pain-right` respectively.
 			--- @type boolean
-			setNames = false,
+			setNames = true,
 			-- Leverages the side buffers as notepads, which work like any Neovim buffer and automatically saves its content at the given `location`.
 			-- note: quitting an unsaved scratchpad buffer is non-blocking, and the content is still saved.
 			--- see |NoNeckPain.bufferOptionsScratchpad|
-			scratchPad = NoNeckPain.bufferOptionsScratchpad,
+			scratchPad = {
+				-- set to `false` to
+				-- disable auto-saving
+				enabled = true,
+				-- set to `nil` to default
+				-- to current working directory
+				location = "~/Documents/",
+			},
 			-- colors to apply to both side buffers, for buffer scopped options @see |NoNeckPain.bufferOptions|
 			--- see |NoNeckPain.bufferOptionsColors|
-			colors = NoNeckPain.bufferOptionsColors,
+			colors = {
+				backgroundColor = "#2a273f",
+				textColor = "#ffffff",
+			},
 			-- Vim buffer-scoped options: any `vim.bo` options is accepted here.
 			--- @see NoNeckPain.bufferOptionsBo `:h NoNeckPain.bufferOptionsBo`
-			bo = NoNeckPain.bufferOptionsBo,
+			bo = {
+				filetype = "md"
+			},
 			-- Vim window-scoped options: any `vim.wo` options is accepted here.
 			--- @see NoNeckPain.bufferOptionsWo `:h NoNeckPain.bufferOptionsWo`
 			wo = NoNeckPain.bufferOptionsWo,
@@ -97,7 +109,7 @@ function setup()
 				position = "left",
 				-- When `true`, if the tree was opened before enabling the plugin, we will reopen it.
 				--- @type boolean
-				reopen = true,
+				reopen = false,
 			},
 			-- By default, if NeoTree is open, we will close it and reopen it when enabling the plugin,
 			-- this prevents having the side buffers wrongly positioned.
@@ -107,7 +119,7 @@ function setup()
 				--- @type "left"|"right"
 				position = "left",
 				-- When `true`, if the tree was opened before enabling the plugin, we will reopen it.
-				reopen = true,
+				reopen = false,
 			},
 			-- @link https://github.com/mbbill/undotree
 			undotree = {
@@ -118,91 +130,100 @@ function setup()
 		},
 	})
 
-	NoNeckPain.bufferOptions = {
-		-- When `false`, the buffer won't be created.
-		--- @type boolean
-		enabled = true,
-		--- @see NoNeckPain.bufferOptionsColors `:h NoNeckPain.bufferOptionsColors`
-		colors = NoNeckPain.bufferOptionsColors,
-		--- @see NoNeckPain.bufferOptionsBo `:h NoNeckPain.bufferOptionsBo`
-		bo = NoNeckPain.bufferOptionsBo,
-		--- @see NoNeckPain.bufferOptionsWo `:h NoNeckPain.bufferOptionsWo`
-		wo = NoNeckPain.bufferOptionsWo,
-		--- @see NoNeckPain.bufferOptionsScratchpad `:h NoNeckPain.bufferOptionsScratchpad`
-		scratchPad = NoNeckPain.bufferOptionsScratchpad,
-	}
-
-	NoNeckPain.bufferOptionsWo = {
-		--- @type boolean
-		cursorline = false,
-		--- @type boolean
-		cursorcolumn = false,
-		--- @type string
-		colorcolumn = "0",
-		--- @type boolean
-		number = false,
-		--- @type boolean
-		relativenumber = false,
-		--- @type boolean
-		foldenable = false,
-		--- @type boolean
-		list = false,
-		--- @type boolean
-		wrap = true,
-		--- @type boolean
-		linebreak = true,
-	}
-
-	NoNeckPain.bufferOptionsBo = {
-		--- @type string
-		filetype = "no-neck-pain",
-		--- @type string
-		buftype = "nofile",
-		--- @type string
-		bufhidden = "hide",
-		--- @type boolean
-		buflisted = false,
-		--- @type boolean
-		swapfile = false,
-	}
-
-	--- NoNeckPain's scratchpad buffer options.
-	---
-	--- Leverages the side buffers as notepads, which work like any Neovim buffer and automatically saves its content at the given `location`.
-	--- note: quitting an unsaved scratchpad buffer is non-blocking, and the content is still saved.
-	---
-	---@type table
-	---Default values:
-	---@eval return MiniDoc.afterlines_to_code(MiniDoc.current.eval_section)
-	NoNeckPain.bufferOptionsScratchpad = {
-		-- When `true`, automatically sets the following options to the side buffers:
-		-- - `autowriteall`
-		-- - `autoread`.
-		--- @type boolean
-		enabled = false,
-		-- The name of the generated file. See `location` for more information.
-		--- @type string
-		--- @example: `no-neck-pain-left.norg`
-		fileName = "no-neck-pain",
-		-- By default, files are saved at the same location as the current Neovim session.
-		-- note: filetype is defaulted to `norg` (https://github.com/nvim-neorg/neorg), but can be changed in `buffers.bo.filetype` or |NoNeckPain.bufferOptions| for option scoped to the `left` and/or `right` buffer.
-		--- @type string?
-		--- @example: `no-neck-pain-left.norg`
-		location = nil,
-	}
-
-	NoNeckPain.bufferOptionsColors = {
-		-- Hexadecimal color code to override the current background color of the buffer. (e.g. #24273A)
-		-- Transparent backgrounds are supported by default.
-		--- @type string?
-		background = nil,
-		-- Brighten (positive) or darken (negative) the side buffers background color. Accepted values are [-1..1].
-		--- @type integer
-		blend = 0,
-		-- Hexadecimal color code to override the current text color of the buffer. (e.g. #7480c2)
-		--- @type string?
-		text = nil,
-	}
+	-- NoNeckPain.bufferOptions = {
+	-- 	-- When `false`, the buffer won't be created.
+	-- 	--- @type boolean
+	-- 	enabled = true,
+	-- 	--- @see NoNeckPain.bufferOptionsColors `:h NoNeckPain.bufferOptionsColors`
+	-- 	colors = NoNeckPain.bufferOptionsColors,
+	-- 	--- @see NoNeckPain.bufferOptionsBo `:h NoNeckPain.bufferOptionsBo`
+	-- 	bo = {
+	-- 		filetype = "md"
+	-- 	},
+	-- 	--- @see NoNeckPain.bufferOptionsWo `:h NoNeckPain.bufferOptionsWo`
+	-- 	wo = NoNeckPain.bufferOptionsWo,
+	-- 	--- @see NoNeckPain.bufferOptionsScratchpad `:h NoNeckPain.bufferOptionsScratchpad`
+	-- 	scratchPad = {
+	-- 		-- set to `false` to
+	-- 		-- disable auto-saving
+	-- 		enabled = true,
+	-- 		-- set to `nil` to default
+	-- 		-- to current working directory
+	-- 		location = "~/Documents/",
+	-- 	},
+	-- }
+	--
+	-- NoNeckPain.bufferOptionsWo = {
+	-- 	--- @type boolean
+	-- 	cursorline = false,
+	-- 	--- @type boolean
+	-- 	cursorcolumn = false,
+	-- 	--- @type string
+	-- 	colorcolumn = "0",
+	-- 	--- @type boolean
+	-- 	number = false,
+	-- 	--- @type boolean
+	-- 	relativenumber = false,
+	-- 	--- @type boolean
+	-- 	foldenable = false,
+	-- 	--- @type boolean
+	-- 	list = false,
+	-- 	--- @type boolean
+	-- 	wrap = true,
+	-- 	--- @type boolean
+	-- 	linebreak = true,
+	-- }
+	--
+	-- NoNeckPain.bufferOptionsBo = {
+	-- 	--- @type string
+	-- 	filetype = "no-neck-pain",
+	-- 	--- @type string
+	-- 	buftype = "nofile",
+	-- 	--- @type string
+	-- 	bufhidden = "hide",
+	-- 	--- @type boolean
+	-- 	buflisted = false,
+	-- 	--- @type boolean
+	-- 	swapfile = false,
+	-- }
+	--
+	-- --- NoNeckPain's scratchpad buffer options.
+	-- ---
+	-- --- Leverages the side buffers as notepads, which work like any Neovim buffer and automatically saves its content at the given `location`.
+	-- --- note: quitting an unsaved scratchpad buffer is non-blocking, and the content is still saved.
+	-- ---
+	-- ---@type table
+	-- ---Default values:
+	-- ---@eval return MiniDoc.afterlines_to_code(MiniDoc.current.eval_section)
+	-- NoNeckPain.bufferOptionsScratchpad = {
+	-- 	-- When `true`, automatically sets the following options to the side buffers:
+	-- 	-- - `autowriteall`
+	-- 	-- - `autoread`.
+	-- 	--- @type boolean
+	-- 	enabled = false,
+	-- 	-- The name of the generated file. See `location` for more information.
+	-- 	--- @type string
+	-- 	--- @example: `no-neck-pain-left.norg`
+	-- 	fileName = "no-neck-pain",
+	-- 	-- By default, files are saved at the same location as the current Neovim session.
+	-- 	-- note: filetype is defaulted to `norg` (https://github.com/nvim-neorg/neorg), but can be changed in `buffers.bo.filetype` or |NoNeckPain.bufferOptions| for option scoped to the `left` and/or `right` buffer.
+	-- 	--- @type string?
+	-- 	--- @example: `no-neck-pain-left.norg`
+	-- 	location = nil,
+	-- }
+	--
+	-- NoNeckPain.bufferOptionsColors = {
+	-- 	-- Hexadecimal color code to override the current background color of the buffer. (e.g. #24273A)
+	-- 	-- Transparent backgrounds are supported by default.
+	-- 	--- @type string?
+	-- 	background = nil,
+	-- 	-- Brighten (positive) or darken (negative) the side buffers background color. Accepted values are [-1..1].
+	-- 	--- @type integer
+	-- 	blend = 0,
+	-- 	-- Hexadecimal color code to override the current text color of the buffer. (e.g. #7480c2)
+	-- 	--- @type string?
+	-- 	text = nil,
+	-- }
 end
 
 setup()
