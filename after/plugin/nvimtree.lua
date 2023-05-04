@@ -43,7 +43,7 @@ function setup()
 					{ key = { "<C-]>", "<2-RightMouse>" },    action = "cd" },
 					{ key = "<C-v>",                          action = "vsplit" },
 					{ key = "<C-x>",                          action = "split" },
-					{ key = "<C-t>",                          action = "tabnew" },
+					-- { key = "<C-t>",                          action = "tabnew" },
 					{ key = "<",                              action = "prev_sibling" },
 					{ key = ">",                              action = "next_sibling" },
 					{ key = "P",                              action = "parent_node" },
