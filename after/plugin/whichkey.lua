@@ -90,7 +90,7 @@ function setup_normal()
 				name = "Current directory",
 				d = KB(":echo expand('%p:h:')<CR>", "Prints the current buffer directory", true, false, false),
 				s = KB(":source<CR>", "Sources the current buffer", false, false, false),
-				n = KB(":NoNeckPain<CR>", "Toggle NoNeckPain", true, true, false),
+				n = KB(":NoNeckPain<CR>", "Toggle NoNeckPain", true, false, false),
 			},
 			q = KB(":q<CR>", "Quit", false, false, false),
 			["Q"] = KB(":q!<CR>", "Force quit", false, false, false),
