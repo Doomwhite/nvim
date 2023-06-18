@@ -230,6 +230,9 @@ local plugins = {
 			-- Snippets
 			{ 'L3MON4D3/LuaSnip' },          -- Required
 			{ 'rafamadriz/friendly-snippets' }, -- Optional
+
+			-- Rust
+			{ 'simrat39/rust-tools.nvim' }
 		}
 	},
 	{
@@ -422,6 +425,9 @@ local plugins = {
 		"folke/todo-comments.nvim",
 		dependencies = "nvim-lua/plenary.nvim"
 	},
+	{
+		"elihunter173/dirbuf.nvim"
+	}
 }
 
 -- Initialize lazy.nvim
