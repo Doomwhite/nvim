@@ -427,7 +427,10 @@ local plugins = {
 	},
 	{
 		"elihunter173/dirbuf.nvim"
-	}
+	},
+	{
+		"rebelot/kanagawa.nvim"
+	},
 }
 
 -- Initialize lazy.nvim
