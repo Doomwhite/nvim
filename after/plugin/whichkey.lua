@@ -50,6 +50,32 @@ function RemoveTermCodes(str)
 	return tempStr
 end
 
+function LogSelectedText()
+	local mode = vim.fn.mode()
+	local selected_text
+
+	if mode == 'v' or mode == 'V' then
+		selected_text = vim.fn.getreg('"')
+	else
+		selected_text = vim.fn.expand("<cword>")
+	end
+
+	vim.api.nvim_command('normal! ostd.log.info("{any}", .{' .. selected_text .. '});')
+end
+
+function PrintSelectedText()
+	local mode = vim.fn.mode()
+	local selected_text
+
+	if mode == 'v' or mode == 'V' then
+		selected_text = vim.fn.getreg('"')
+	else
+		selected_text = vim.fn.expand("<cword>")
+	end
+
+	vim.api.nvim_command('normal! ostd.debug.print("{any}", .{' .. selected_text .. '});')
+end
+
 wk.setup()
 
 function setup_normal()
@@ -91,6 +117,8 @@ function setup_normal()
 				d = KB(":echo expand('%p:h:')<CR>", "Prints the current buffer directory", true, false, false),
 				s = KB(":source<CR>", "Sources the current buffer", false, false, false),
 				n = KB(":NoNeckPain<CR>", "Toggle NoNeckPain", true, false, false),
+				l = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
+				p = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),
 			},
 			q = KB(":q<CR>", "Quit", false, false, false),
 			["Q"] = KB(":q!<CR>", "Force quit", false, false, false),
@@ -237,6 +265,14 @@ function setup_visual()
 			-- 	v = KB(":lua require('refactoring').debug.print_var()<CR>", "Print var selected text", false, false, false),
 			-- },
 			-- o = KB(":lua require('refactoring').select_refactor()<CR>", "Refactoring", false, false, false),
+		},
+		["<leader>"] = {
+			name = "Leader layer",
+			["."] = {
+				name = "Current directory",
+				l = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
+				p = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),
+			},
 		},
 		["H"] = KB("^", "Move to beginning of line", false, false, false),
 		["L"] = KB("$", "Move to end of line", false, false, false),
