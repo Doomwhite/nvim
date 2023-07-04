@@ -1,4 +1,68 @@
 local keymap = vim.keymap.set
+
+function set_registers_to_deattached(wk)
+	local title = "Deattached (No binding set)"
+	wk.register({
+		["<leader>.L"] = { "", title },
+		["<leader>.P"] = { "", title }
+	})
+end
+
+local servers = {
+	zls = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+			wk.register({
+				["<leader>.L"] = { ":lua LogSelectedText()<CR>", "LogSelectedText" },
+				["<leader>.P"] = { ":lua PrintSelectedText()<CR>", "PrintSelectedText" }
+			})
+		end
+	},
+	clangd = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+		end
+	},
+	cmake = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+		end
+	},
+	eslint = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+		end
+	},
+	lua_ls = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+		end
+	},
+	tsserver = {
+		on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			set_default_keymaps(opts)
+			local wk = require("which-key")
+			set_registers_to_deattached(wk)
+		end
+	},
+}
+
 function setup_lsp()
 	local lsp = require('lsp-zero').preset({
 		name = 'minimal',
@@ -6,14 +70,7 @@ function setup_lsp()
 		manage_nvim_cmp = true,
 		suggest_lsp_servers = false,
 	})
-	lsp.ensure_installed({
-		'clangd',
-		'cmake',
-		'eslint',
-		'lua_ls',
-		'tsserver',
-		'zls'
-	})
+	lsp.ensure_installed(vim.tbl_keys(servers))
 
 	-- Keybindings
 	lsp.on_attach(function(client, bufnr)
@@ -37,6 +94,7 @@ function setup_lsp()
 		-- keymap("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 	end)
 
+
 	-- vim.api.nvim_create_autocmd("CursorHold", {
 	--   buffer = bufnr,
 	--   callback = function()
@@ -56,6 +114,32 @@ function setup_lsp()
 	-- lsp.nvim_workspace()
 
 	lsp.setup()
+end
+
+function setup_lsp_config_servers()
+	local lsp_config = require('lspconfig')
+	for k, v in pairs(servers) do
+		lsp_config[k].setup(v)
+	end
+end
+
+function set_default_keymaps(opts)
+	-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+	keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
+	keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
+	keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
+	keymap({ "n", "v" }, "gq", "<cmd>Lspsaga code_action<CR>", opts)
+	keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>", opts)
+	keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts)
+	keymap("n", "gq", function() vim.lsp.buf.code_action() end, opts)
+	-- keymap("n", "<leader>=", function() vim.lsp.buf.format() end, opts)
+	keymap("n", "<leader>f=", function() vim.lsp.buf.format() end, opts)
+	-- keymap("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+	-- keymap("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+	keymap("n", "(d", function() vim.diagnostic.goto_next() end, opts)
+	keymap("n", ")d", function() vim.diagnostic.goto_prev() end, opts)
+	keymap("n", "<leader>rr", function() vim.lsp.buf.rename() end, opts)
+	-- keymap("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end
 
 function setup_dap()
@@ -365,6 +449,7 @@ function setup_rust_tools()
 end
 
 setup_lsp()
+setup_lsp_config_servers()
 setup_dap()
 setup_mason_dap()
 setup_rust_tools()
