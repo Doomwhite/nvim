@@ -370,7 +370,8 @@ local plugins = {
 	},
 	{
 		'xiyaowong/transparent.nvim',
-		lazy = false
+		lazy = false,
+		run = ":TransparentEnable"
 	},
 	{
 		'saecki/crates.nvim',
