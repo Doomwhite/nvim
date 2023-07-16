@@ -21,8 +21,10 @@ function setup_normal()
 	-- Normal mode keybindings
 	wk.register({
 		["<leader>"] = { name = "Leader layer" },
-		["<leader>q"] = KB(":q<CR>", "Quit", false, false, false),
-		["<leader>Q"] = KB(":q!<CR>", "Force quit", false, false, false),
+		["<leader>q"] = KB(":q<CR>", "Quit", true, false, false),
+		["<leader>Q"] = KB(":q!<CR>", "Force quit", true, false, false),
+		["<leader>y"] = KB("\"+y", "Quit", false, false, false),
+		["<leader>p"] = KB("\"+p", "Quit", false, false, false),
 		["<leader>u"] = KB(":UndotreeToggle<CR>", "Undo tree history toggle", true, false, false),
 
 		["<leader><leader>"] = { name = "Leader second layer" },
@@ -183,6 +185,8 @@ function setup_visual()
 		["<leader>"] = { name = "Leader layer" },
 
 		["<leader>."] = { name = "Current directory" },
+		["<leader>y"] = KB("\"+y", "Quit", false, false, false),
+		["<leader>p"] = KB("\"+p", "Quit", false, false, false),
 		["<leader>.l"] = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
 		["<leader>.p"] = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),
 
