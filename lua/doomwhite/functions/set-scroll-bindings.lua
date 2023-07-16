@@ -15,7 +15,7 @@
 --   augroup END
 -- ]])
 
-function setScrollBindings()
+function set_scroll_bindings()
 	vim.keymap.set({ 'n', 'v', 'x' }, '<C-u>', math.ceil(vim.api.nvim_win_get_height(0) / 3.5) .. "k")
 	vim.keymap.set({ 'n', 'v', 'x' }, '<C-d>', math.ceil(vim.api.nvim_win_get_height(0) / 3.5) .. "j")
 	vim.opt.scrolloff = math.ceil(vim.api.nvim_win_get_height(0) / (3.5 * 1.2))
@@ -23,18 +23,18 @@ end
 
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function(tbl)
-		setScrollBindings()
+		set_scroll_bindings()
 	end
 })
 
 vim.api.nvim_create_autocmd("WinResized", {
 	callback = function(tbl)
-		setScrollBindings()
+		set_scroll_bindings()
 	end
 })
 
 vim.api.nvim_create_autocmd('VimEnter', {
 	callback = function(tbl)
-		setScrollBindings()
+		set_scroll_bindings()
 	end
 })

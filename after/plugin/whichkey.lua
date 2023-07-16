@@ -43,6 +43,7 @@ function setup_normal()
 		["<leader>."] = { name = "Current directory" },
 		["<leader>.d"] = KB(":echo expand('%p:h:')<CR>", "Prints the current buffer directory", true, false, false),
 		["<leader>.s"] = KB(":source<CR>", "Sources the current buffer", false, false, false),
+		["<leader>.r"] = KB(":lua set_scroll_bindings()<CR>", "Sets the scrolling settings by window size", false, false, false),
 		["<leader>.n"] = KB(":NoNeckPain<CR>", "Toggle NoNeckPain", true, false, false),
 		["<leader>.l"] = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
 		["<leader>.p"] = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),

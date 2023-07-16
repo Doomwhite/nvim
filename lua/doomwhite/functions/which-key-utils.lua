@@ -46,11 +46,10 @@ function RemoveTermCodes(str)
 end
 
 function LogSelectedText(lang_name)
-	local mode = vim.fn.mode()
 	local selected_text = GetSelectedText()
 
 	local log_function_tokens;
-	if lang_name == 'zig' then
+	if lang_name == 'zls' then
 		log_function_tokens = "std.log.info(\"{any}\", .{" .. selected_text .. "});"
 	elseif lang_name == 'tsserver' then
 		log_function_tokens = "console.log(\'" .. selected_text .. "\'" .. ", " .. selected_text .. ");"
@@ -65,11 +64,10 @@ function LogSelectedText(lang_name)
 end
 
 function PrintSelectedText(lang_name)
-	local mode = vim.fn.mode()
 	local selected_text = GetSelectedText()
 
 	local print_function_tokens = "";
-	if lang_name == 'zig' then
+	if lang_name == 'zls' then
 		print_function_tokens = "std.debug.print(\"{any}\", .{" .. selected_text .. "});"
 	elseif lang_name == 'tsserver' then
 		print_function_tokens = "console.log(\'" .. selected_text .. "\'" .. ", " .. selected_text .. ");"
@@ -84,6 +82,7 @@ function PrintSelectedText(lang_name)
 end
 
 function GetSelectedText()
+	local mode = vim.fn.mode()
 	if mode == 'v' or mode == 'V' then
 		return vim.fn.getreg('"')
 	else

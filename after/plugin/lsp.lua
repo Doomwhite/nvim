@@ -1,20 +1,20 @@
 local keymap = vim.keymap.set
 
-function set_registers_to_deattached(wk, opts)
-	local title = "Deattached (No binding set)"
-	wk.register({
-		["<leader>.l"] = { "", title },
-		["<leader>.p"] = { "", title }
-	}, opts)
-end
-
+-- function set_registers_to_deattached(wk, opts)
+-- 	local title = "Deattached (No binding set)"
+-- 	wk.register({
+-- 		["<leader>.l"] = { "", title },
+-- 		["<leader>.p"] = { "", title }
+-- 	}, opts)
+-- end
+--
 local servers = {
 	zls = {
 		on_attach = function(client, bufnr)
-			local lang_name = "zig"
+			local lang_name = "zls"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 	clangd = {
@@ -22,7 +22,7 @@ local servers = {
 			local lang_name = "clangd"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 	cmake = {
@@ -30,7 +30,7 @@ local servers = {
 			local lang_name = "cmake"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 	eslint = {
@@ -38,7 +38,7 @@ local servers = {
 			local lang_name = "eslint"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 	lua_ls = {
@@ -46,7 +46,7 @@ local servers = {
 			local lang_name = "lua_ls"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 	tsserver = {
@@ -54,17 +54,15 @@ local servers = {
 			local lang_name = "tsserver"
 			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			set_language_keymaps(lang_name, bufnr)
+			set_code_action_keymaps(lang_name, bufnr)
 		end
 	},
 }
 
-function set_language_keymaps(lang_name, bufnr)
+function set_code_action_keymaps(lang_name, bufnr)
 	local wk = require("which-key")
 	local wk_normal_opts = { mode = "n", buffer = bufnr, remap = true }
 	local wk_visual_opts = { mode = "v", buffer = bufnr, remap = true }
-	set_registers_to_deattached(wk, wk_normal_opts)
-	set_registers_to_deattached(wk, wk_visual_opts)
 	wk.register({
 		["<leader>.l"] = { ":lua LogSelectedText(\"" .. lang_name .. "\")<CR>", "LogSelectedText" },
 		["<leader>.p"] = { ":lua PrintSelectedText(\"" .. lang_name .. "\")<CR>", "PrintSelectedText" }
@@ -86,24 +84,23 @@ function setup_lsp()
 
 	-- Keybindings
 	lsp.on_attach(function(client, bufnr)
-		local opts = { buffer = bufnr, remap = false }
-
-		-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-		keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
-		keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
-		keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
-		keymap({ "n", "v" }, "gq", "<cmd>Lspsaga code_action<CR>", opts)
-		keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>", opts)
-		keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts)
-		keymap("n", "gq", function() vim.lsp.buf.code_action() end, opts)
-		-- keymap("n", "<leader>=", function() vim.lsp.buf.format() end, opts)
-		keymap("n", "<leader>f=", function() vim.lsp.buf.format() end, opts)
-		-- keymap("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-		-- keymap("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-		keymap("n", "(d", function() vim.diagnostic.goto_next() end, opts)
-		keymap("n", ")d", function() vim.diagnostic.goto_prev() end, opts)
-		keymap("n", "<leader>rr", function() vim.lsp.buf.rename() end, opts)
-		-- keymap("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+		-- local opts = { buffer = bufnr, remap = false }
+		-- keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
+		-- keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
+		-- keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
+		-- keymap({ "n", "v" }, "gq", "<cmd>Lspsaga code_action<CR>", opts)
+		-- keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>", opts)
+		-- keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts)
+		-- keymap("n", "gq", function() vim.lsp.buf.code_action() end, opts)
+		-- keymap("n", "<leader>f=", function() vim.lsp.buf.format() end, opts)
+		-- keymap("n", "(d", function() vim.diagnostic.goto_next() end, opts)
+		-- keymap("n", ")d", function() vim.diagnostic.goto_prev() end, opts)
+		-- keymap("n", "<leader>rr", function() vim.lsp.buf.rename() end, opts)
+		-- -- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+		-- -- keymap("n", "<leader>=", function() vim.lsp.buf.format() end, opts)
+		-- -- keymap("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+		-- -- keymap("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+		-- -- keymap("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 	end)
 
 
@@ -136,7 +133,6 @@ function setup_lsp_config_servers()
 end
 
 function set_default_keymaps(opts)
-	-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 	keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
 	keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
 	keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
@@ -144,13 +140,14 @@ function set_default_keymaps(opts)
 	keymap("n", "<leader>rr", "<cmd>Lspsaga rename<CR>", opts)
 	keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts)
 	keymap("n", "gq", function() vim.lsp.buf.code_action() end, opts)
-	-- keymap("n", "<leader>=", function() vim.lsp.buf.format() end, opts)
 	keymap("n", "<leader>f=", function() vim.lsp.buf.format() end, opts)
-	-- keymap("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-	-- keymap("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 	keymap("n", "(d", function() vim.diagnostic.goto_next() end, opts)
 	keymap("n", ")d", function() vim.diagnostic.goto_prev() end, opts)
 	keymap("n", "<leader>rr", function() vim.lsp.buf.rename() end, opts)
+	-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+	-- keymap("n", "<leader>=", function() vim.lsp.buf.format() end, opts)
+	-- keymap("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+	-- keymap("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
 	-- keymap("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end
 
