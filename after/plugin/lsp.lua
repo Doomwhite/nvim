@@ -1,67 +1,79 @@
 local keymap = vim.keymap.set
 
-function set_registers_to_deattached(wk)
+function set_registers_to_deattached(wk, opts)
 	local title = "Deattached (No binding set)"
 	wk.register({
-		["<leader>.L"] = { "", title },
-		["<leader>.P"] = { "", title }
-	})
+		["<leader>.l"] = { "", title },
+		["<leader>.p"] = { "", title }
+	}, opts)
 end
 
 local servers = {
 	zls = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "zig"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
-			wk.register({
-				["<leader>.L"] = { ":lua LogSelectedText()<CR>", "LogSelectedText" },
-				["<leader>.P"] = { ":lua PrintSelectedText()<CR>", "PrintSelectedText" }
-			})
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 	clangd = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "clangd"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 	cmake = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "cmake"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 	eslint = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "eslint"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 	lua_ls = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "lua_ls"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 	tsserver = {
 		on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
+			local lang_name = "tsserver"
+			local opts = { buffer = bufnr, remap = true }
 			set_default_keymaps(opts)
-			local wk = require("which-key")
-			set_registers_to_deattached(wk)
+			set_language_keymaps(lang_name, bufnr)
 		end
 	},
 }
+
+function set_language_keymaps(lang_name, bufnr)
+	local wk = require("which-key")
+	local wk_normal_opts = { mode = "n", buffer = bufnr, remap = true }
+	local wk_visual_opts = { mode = "v", buffer = bufnr, remap = true }
+	set_registers_to_deattached(wk, wk_normal_opts)
+	set_registers_to_deattached(wk, wk_visual_opts)
+	wk.register({
+		["<leader>.l"] = { ":lua LogSelectedText(\"" .. lang_name .. "\")<CR>", "LogSelectedText" },
+		["<leader>.p"] = { ":lua PrintSelectedText(\"" .. lang_name .. "\")<CR>", "PrintSelectedText" }
+	}, wk_normal_opts)
+	wk.register({
+		["<leader>.l"] = { ":lua LogSelectedText(\"" .. lang_name .. "\")<CR>", "LogSelectedText" },
+		["<leader>.p"] = { ":lua PrintSelectedText(\"" .. lang_name .. "\")<CR>", "PrintSelectedText" }
+	}, wk_visual_opts)
+end
 
 function setup_lsp()
 	local lsp = require('lsp-zero').preset({
