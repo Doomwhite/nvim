@@ -45,16 +45,16 @@ function RemoveTermCodes(str)
 	return tempStr
 end
 
-function LogSelectedText(lang_name)
-	local selected_text = GetSelectedText()
+function LogSelectedText(lang_name, mode)
+	local selected_text = GetSelectedText(mode)
 
 	local log_function_tokens;
 	if lang_name == 'zls' then
-		log_function_tokens = "std.log.info(\"{any}\", .{" .. selected_text .. "});"
+		log_function_tokens = string.format("std.log.info(\"%s: {any}\", .{%s});", selected_text, selected_text)
 	elseif lang_name == 'tsserver' then
-		log_function_tokens = "console.log(\'" .. selected_text .. "\'" .. ", " .. selected_text .. ");"
+		log_function_tokens = string.format("console.log(\'%s\', %s);", selected_text, selected_text)
 	elseif lang_name == 'lua_ls' then
-		log_function_tokens = "print(" .. selected_text .. ")"
+		log_function_tokens = string.format("print(%s)", selected_text)
 	else
 		ThrowNotImplemented("LogSelectedText", lang_name)
 		return
@@ -63,16 +63,16 @@ function LogSelectedText(lang_name)
 	vim.api.nvim_command('normal! o' .. log_function_tokens)
 end
 
-function PrintSelectedText(lang_name)
-	local selected_text = GetSelectedText()
+function PrintSelectedText(lang_name, mode)
+	local selected_text = GetSelectedText(mode)
 
 	local print_function_tokens = "";
 	if lang_name == 'zls' then
-		print_function_tokens = "std.debug.print(\"{any}\", .{" .. selected_text .. "});"
+		print_function_tokens = string.format("std.debug.print(\"%s: {any}\", .{%s});", selected_text, selected_text)
 	elseif lang_name == 'tsserver' then
 		print_function_tokens = "console.log(\'" .. selected_text .. "\'" .. ", " .. selected_text .. ");"
 	elseif lang_name == 'lua_ls' then
-		print_function_tokens = "print(" .. selected_text .. ")"
+		print_function_tokens = string.format("print(%s)", selected_text)
 	else
 		ThrowNotImplemented("PrintSelectedText", lang_name)
 		return
@@ -81,10 +81,22 @@ function PrintSelectedText(lang_name)
 	vim.api.nvim_command('normal! o' .. print_function_tokens)
 end
 
-function GetSelectedText()
-	local mode = vim.fn.mode()
+function RegionToText(region)
+	local text = ''
+	local maxcol = vim.v.maxcol
+	for line, cols in vim.spairs(region) do
+		local endcol = cols[2] == maxcol and -1 or cols[2]
+		local chunk = vim.api.nvim_buf_get_text(0, line, cols[1], line, endcol, {})[1]
+		text = ('%s%s\n'):format(text, chunk)
+	end
+	return text
+end
+
+function GetSelectedText(mode)
+	-- local mode = vim.fn.mode()
 	if mode == 'v' or mode == 'V' then
-		return vim.fn.getreg('"')
+		local region = vim.region(0, "'<", "'>", vim.fn.visualmode(), true)
+		return RegionToText(region)
 	else
 		return vim.fn.expand("<cword>")
 	end

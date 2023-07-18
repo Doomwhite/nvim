@@ -64,12 +64,12 @@ function set_code_action_keymaps(lang_name, bufnr)
 	local wk_normal_opts = { mode = "n", buffer = bufnr, remap = true }
 	local wk_visual_opts = { mode = "v", buffer = bufnr, remap = true }
 	wk.register({
-		["<leader>.l"] = { ":lua LogSelectedText(\"" .. lang_name .. "\")<CR>", "LogSelectedText" },
-		["<leader>.p"] = { ":lua PrintSelectedText(\"" .. lang_name .. "\")<CR>", "PrintSelectedText" }
+		["<leader>.l"] = { string.format(":lua LogSelectedText(\"%s\", 'n')<CR>", lang_name), "LogSelectedText" },
+		["<leader>.p"] = { string.format(":lua PrintSelectedText(\"%s\", 'n')<CR>", lang_name), "PrintSelectedText" }
 	}, wk_normal_opts)
 	wk.register({
-		["<leader>.l"] = { ":lua LogSelectedText(\"" .. lang_name .. "\")<CR>", "LogSelectedText" },
-		["<leader>.p"] = { ":lua PrintSelectedText(\"" .. lang_name .. "\")<CR>", "PrintSelectedText" }
+		["<leader>.l"] = { string.format(":lua LogSelectedText(\"%s\", 'v')<CR>", lang_name), "LogSelectedText" },
+		["<leader>.p"] = { string.format(":lua PrintSelectedText(\"%s\", 'v')<CR>", lang_name), "PrintSelectedText" }
 	}, wk_visual_opts)
 end
 

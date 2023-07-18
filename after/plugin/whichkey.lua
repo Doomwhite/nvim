@@ -47,8 +47,6 @@ function setup_normal()
 		["<leader>.s"] = KB(":source<CR>", "Sources the current buffer", false, false, false),
 		["<leader>.r"] = KB(":lua set_scroll_bindings()<CR>", "Sets the scrolling settings by window size", false, false, false),
 		["<leader>.n"] = KB(":NoNeckPain<CR>", "Toggle NoNeckPain", true, false, false),
-		["<leader>.l"] = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
-		["<leader>.p"] = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),
 
 		["<leader>f"] = { name = "Find" },
 		["<leader>fs"] = KB(":w<CR>", "Save file", false, false, false),
@@ -187,8 +185,6 @@ function setup_visual()
 		["<leader>."] = { name = "Current directory" },
 		["<leader>y"] = KB("\"+y", "Quit", false, false, false),
 		["<leader>p"] = KB("\"+p", "Quit", false, false, false),
-		["<leader>.l"] = KB(":lua LogSelectedText()<CR>", "LogSelectedText", false, false, false),
-		["<leader>.p"] = KB(":lua PrintSelectedText()<CR>", "PrintSelectedText", false, false, false),
 
 
 		["H"] = KB("^", "Move to beginning of line", false, false, false),
