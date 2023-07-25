@@ -87,13 +87,12 @@ function RegionToText(region)
 	for line, cols in vim.spairs(region) do
 		local endcol = cols[2] == maxcol and -1 or cols[2]
 		local chunk = vim.api.nvim_buf_get_text(0, line, cols[1], line, endcol, {})[1]
-		text = ('%s%s\n'):format(text, chunk)
+		text = ('%s%s'):format(text, chunk)
 	end
 	return text
 end
 
 function GetSelectedText(mode)
-	-- local mode = vim.fn.mode()
 	if mode == 'v' or mode == 'V' then
 		local region = vim.region(0, "'<", "'>", vim.fn.visualmode(), true)
 		return RegionToText(region)
