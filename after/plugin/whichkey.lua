@@ -1,6 +1,6 @@
 function setup()
-	local mark = require("harpoon.mark")
-	local ui = require("harpoon.ui")
+	-- local mark = require("harpoon.mark")
+	-- local ui = require("harpoon.ui")
 	local wk = require("which-key")
 
 	local wkutils = require("doomwhite.functions.which-key-utils")
@@ -81,12 +81,12 @@ function setup()
 			["<leader>w<C-Right>"] = KB(":vertical resize +2<CR>", "Decrease window width", true, true, true),
 			["<leader>w<C-Left>"] = KB(":vertical resize -2<CR>", "Increase window width", true, true, true),
 
-			["<leader>h"] = { name = "Harpoon", },
-			["<leader>ha"] = { mark.add_file, "Adds files" },
-			["<leader>he"] = { mark.add_file, "Toggles menu" },
-			["<leader>hs"] = { function() ui.nav_file(2) end, "Go to file 2" },
-			["<leader>hd"] = { function() ui.nav_file(3) end, "Go to file 3" },
-			["<leader>hf"] = { function() ui.nav_file(4) end, "Go to file 4" },
+		--  ["<leader>h"] = { name = "Harpoon", },
+		--  ["<leader>ha"] = { mark.add_file, "Adds files" },
+		--  ["<leader>he"] = { mark.add_file, "Toggles menu" },
+		--  ["<leader>hs"] = { function() ui.nav_file(2) end, "Go to file 2" },
+		--  ["<leader>hd"] = { function() ui.nav_file(3) end, "Go to file 3" },
+		--  ["<leader>hf"] = { function() ui.nav_file(4) end, "Go to file 4" },
 
 
 			g = { name = "g" },
