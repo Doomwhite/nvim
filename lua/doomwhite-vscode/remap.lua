@@ -63,9 +63,12 @@ function keybindings()
     keymap({'n','x', 'v'}, 'K', "{", opts)
 
     -- Refactoring
-    keymap({ "n", "x" }, "gq", function()
+    keymap({ "n" }, "gq", function()
+	action("editor.action.quickFix")
+    end, opts)
+    keymap({ "x" }, "gq", function()
 	vscode.with_insert(function()
-	    action("editor.action.refactor")
+	    action("editor.action.quickFix")
 	end)
     end, opts)
     
@@ -108,6 +111,18 @@ function keybindings()
 	action("search.action.openNewEditor", {
 	    args = { query = selected_text, caseSensitive = true, focusResults = true, onlyOpenEditors = true }
 	})
+    end, opts)
+    keymap('n', '<leader>fs',
+           function() action("workbench.action.files.save")
+    end, opts)
+    keymap('n', '<leader>fS',
+           function() action("workbench.action.files.saveAll")
+    end, opts)
+    keymap('n', '<leader>f=',
+           function() action("editor.action.formatDocument")
+    end, opts)
+    keymap('n', '<leader>fo',
+           function() action("editor.action.organizeImports")
     end, opts)
 end
 
