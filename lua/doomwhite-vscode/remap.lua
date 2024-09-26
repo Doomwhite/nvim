@@ -71,6 +71,9 @@ function keybindings()
 	    action("editor.action.quickFix")
 	end)
     end, opts)
+    keymap({ "n" }, "<leader>rr", function()
+	    action("editor.action.rename")
+    end, opts)
     
     -- W keybinding
     keymap('n', '<leader>wp', function()
