@@ -1,6 +1,8 @@
 local api = vim.api
 api.nvim_exec('language en_US', true)
-api.nvim_set_option("clipboard", "unnamed")
+-- api.nvim_set_option("clipboard", "unnamed")
+
+-- vim.g.coc_node_path = 'C:/Users/Cliente/scoop/persist/nvm/nodejs/v19.7.0/node'
 
 local options = {
 	cmdheight = 2,
@@ -12,16 +14,17 @@ local options = {
 	nu = true,
 	relativenumber = true,
 	ruler = true,
-	scrolloff = 8,
+	-- scrolloff = 8,
 	shiftwidth = 2,
 	signcolumn = "yes",
 	smartcase = true,
 	smartindent = true,
 	splitbelow = true,
 	splitright = true,
-	tabstop = 4,
+	tabstop = 2,
 	termguicolors = true,
 	updatetime = 50,
+	foldmethod = "manual"
 }
 
 vim.opt.isfname:append("@-@")

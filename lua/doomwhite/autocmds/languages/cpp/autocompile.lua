@@ -19,6 +19,14 @@ function RunCompiler()
 	vim.api.nvim_feedkeys(cmd, "n", true)
 end
 
+function RunCompilerWithCPP11()
+	local cmd = "g++ " ..
+			vim.g.file_to_compile .. " -o " .. vim.g.output_file .. " -std=c++11" .. " & " .. vim.g.output_file
+	vim.cmd(":ToggleTerm<CR>")
+	vim.cmd("startinsert!")
+	vim.api.nvim_feedkeys(cmd, "n", true)
+end
+
 function LoadCompileVars()
 	if vim.fn.filereadable(compile_vars_file) == 1 then
 		local vars = vim.fn.readfile(compile_vars_file)

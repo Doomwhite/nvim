@@ -1,0 +1,70 @@
+-- local dap = require('dap')
+
+-- dap.adapters.codelldb = {
+-- 	type = 'server',
+-- 	port = "13000",
+-- 	executable = {
+-- 		command =
+-- 		'C:\\Users\\Cliente\\AppData\\Local\\nvim\\after\\plugin\\dap-debuggers\\cpp\\codelldb-x86_64-windows\\extension\\adapter\\codelldb',
+-- 		args = { "--port", "13000" },
+-- 		-- On windows you may have to uncomment this:
+-- 		detached = false,
+-- 	}
+-- }
+--
+-- dap.configurations.cpp = {
+-- 	{
+-- 		name = "Launch file",
+-- 		type = "codelldb",
+-- 		request = "launch",
+-- 		-- program = "${workspaceFolder}/main",
+-- 		program = function()
+-- 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '\\', 'file')
+-- 		end,
+-- 		cwd = '${workspaceFolder}',
+-- 		stopOnEntry = false,
+-- 	},
+-- }
+
+
+
+-- dap.adapters.cppdbg = {
+-- 	id = 'cppdbg',
+-- 	type = 'executable',
+-- 	command =
+-- 	'C:\\Users\\Cliente\\AppData\\Local\\nvim\\after\\plugin\\dap-debuggers\\cpp\\cpptools-win64\\extension\\debugAdapters\\bin\\OpenDebugAD7.exe',
+-- 	options = {
+-- 		detached = false
+-- 	}
+-- }
+-- dap.configurations.cpp = {
+-- 	{
+-- 		name = "Launch file",
+-- 		type = "cppdbg",
+-- 		request = "launch",
+-- 		program = function()
+-- 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '\\', 'file')
+-- 		end,
+-- 		cwd = '${workspaceFolder}',
+-- 		stopAtEntry = true,
+-- 		MIMode = 'gdb',
+-- 		MIDebuggerPath = 'gdb.exe',
+-- 	},
+-- 	{
+-- 		name = 'Attach to gdbserver :1234',
+-- 		type = 'cppdbg',
+-- 		request = 'launch',
+-- 		MIMode = 'gdb',
+-- 		miDebuggerServerAddress = 'localhost:1234',
+-- 		miDebuggerPath = '/usr/bin/gdb',
+-- 		cwd = '${workspaceFolder}',
+-- 		program = function()
+-- 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '\\', 'file')
+-- 		end,
+-- 	},
+-- }
+--
+-- dap.configurations.c = dap.configurations.cpp
+-- dap.configurations.rust = dap.configurations.cpp
+
+

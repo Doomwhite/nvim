@@ -14,7 +14,17 @@
 --     end
 --   end
 -- })
+
 function cwd()
-  local cwd = vim.fn.getcwd()
-  print("Current working directory: " .. cwd)
+	local cwd = vim.fn.getcwd()
+	print("Current working directory: " .. cwd)
 end
+
+-- vim.cmd([[
+--   augroup remember_folds
+--     autocmd!
+--     autocmd BufWinLeave * if bufname("") != "" | mkview | endif
+--     autocmd BufWinEnter * silent! loadview
+--   augroup END
+-- ]])
+--

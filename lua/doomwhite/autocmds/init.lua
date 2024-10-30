@@ -1,3 +1,2 @@
-require("doomwhite.autocmds.cpp.autocompile")
-require("doomwhite.autocmds.misc.autocmd")
--- require("doomwhite.autocmds.misc.packercmd")
+require("doomwhite.autocmds.languages")
+require("doomwhite.autocmds.misc")
