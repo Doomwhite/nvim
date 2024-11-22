@@ -1,6 +1,7 @@
 -- vscode module
 local vscode = require('vscode')
 local action = vscode.action
+local call = vscode.call
 
 -- Shorten function name
 local keymap = vim.keymap.set
@@ -61,10 +62,11 @@ function keybindings()
     keymap({'n','x', 'v'}, 'L', "$", opts)
     keymap({'n','x', 'v'}, 'J', "}", opts)
     keymap({'n','x', 'v'}, 'K', "{", opts)
+    keymap({'n','x', 'v'}, 'gp', "gT", opts)
 
     -- Refactoring
     keymap({ "n" }, "gq", function()
-	action("editor.action.quickFix")
+	call("editor.action.quickFix")
     end, opts)
     keymap({ "x" }, "gq", function()
 	vscode.with_insert(function()
@@ -83,6 +85,14 @@ function keybindings()
     -- ; keybindings
     keymap('n', ';e', function()
 	action("revealInExplorer")
+    end, opts)
+
+    keymap('n', ';E', function()
+	action("workbench.action.toggleSidebarVisibility")
+    end, opts)
+
+    keymap('n', ';R', function()
+	action("workbench.action.toggleAuxiliaryBar")
     end, opts)
 
     -- F keybindings
