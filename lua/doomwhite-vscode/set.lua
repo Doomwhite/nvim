@@ -1,5 +1,5 @@
 local options = {
-	cmdheight = 2,
+	cmdheight = 4,
 	fileencoding = "utf-8",
 	hlsearch = false,
 	ignorecase = true,

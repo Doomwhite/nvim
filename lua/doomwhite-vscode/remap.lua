@@ -87,11 +87,11 @@ function keybindings()
 	action("revealInExplorer")
     end, opts)
 
-    keymap('n', ';E', function()
+    keymap('n', '<leader>th', function()
 	action("workbench.action.toggleSidebarVisibility")
     end, opts)
 
-    keymap('n', ';R', function()
+    keymap('n', '<leader>tl', function()
 	action("workbench.action.toggleAuxiliaryBar")
     end, opts)
 
